@@ -11,6 +11,18 @@ export const navLinks: NavLink[] = [
   { label: "Contact", href: "#contact" },
 ];
 
+export type Specialty = {
+  label: string;
+};
+
+export const specialties: Specialty[] = [
+  { label: "Full Event Planning" },
+  { label: "Decor & Floral Styling" },
+  { label: "South Asian Celebrations" },
+  { label: "Proposal Setups" },
+  { label: "Custom Backdrops" },
+];
+
 export type Service = {
   slug: string;
   title: string;
@@ -58,19 +70,20 @@ export type GalleryItem = {
   id: string;
   image: string;
   alt: string;
+  caption: string;
   span?: "tall" | "wide" | "normal";
 };
 
 export const galleryItems: GalleryItem[] = [
-  { id: "g1", image: "/images/gallery-1.svg", alt: "Ivory and olive floral centerpiece on a reception table", span: "tall" },
-  { id: "g2", image: "/images/gallery-2.svg", alt: "Draped ceremony arch with cascading greenery", span: "normal" },
-  { id: "g3", image: "/images/gallery-3.svg", alt: "Close-up of hand-tied bridal bouquet in warm tones", span: "normal" },
-  { id: "g4", image: "/images/gallery-4.svg", alt: "Sangeet stage styled with marigold and fairy lights", span: "wide" },
-  { id: "g5", image: "/images/gallery-5.svg", alt: "Place setting detail with gold flatware and taper candles", span: "normal" },
-  { id: "g6", image: "/images/gallery-6.svg", alt: "Mehndi lounge seating styled with cushions and lanterns", span: "tall" },
-  { id: "g7", image: "/images/gallery-7.svg", alt: "Proposal picnic setup styled with candles and petals", span: "normal" },
-  { id: "g8", image: "/images/gallery-8.svg", alt: "Nikkah stage backdrop with layered drapery", span: "normal" },
-  { id: "g9", image: "/images/gallery-9.svg", alt: "Dessert table styled with florals and neutral linens", span: "wide" },
+  { id: "g1", image: "/images/gallery-1.svg", alt: "Ivory and olive floral centerpiece on a reception table", caption: "Reception Centerpiece", span: "tall" },
+  { id: "g2", image: "/images/gallery-2.svg", alt: "Draped ceremony arch with cascading greenery", caption: "Ceremony Arch", span: "normal" },
+  { id: "g3", image: "/images/gallery-3.svg", alt: "Close-up of hand-tied bridal bouquet in warm tones", caption: "Bridal Bouquet", span: "normal" },
+  { id: "g4", image: "/images/gallery-4.svg", alt: "Sangeet stage styled with marigold and fairy lights", caption: "Sangeet Stage", span: "wide" },
+  { id: "g5", image: "/images/gallery-5.svg", alt: "Place setting detail with gold flatware and taper candles", caption: "Table Styling", span: "normal" },
+  { id: "g6", image: "/images/gallery-6.svg", alt: "Mehndi lounge seating styled with cushions and lanterns", caption: "Mehndi Lounge", span: "tall" },
+  { id: "g7", image: "/images/gallery-7.svg", alt: "Proposal picnic setup styled with candles and petals", caption: "Proposal Setup", span: "normal" },
+  { id: "g8", image: "/images/gallery-8.svg", alt: "Nikkah stage backdrop with layered drapery", caption: "Nikkah Backdrop", span: "normal" },
+  { id: "g9", image: "/images/gallery-9.svg", alt: "Dessert table styled with florals and neutral linens", caption: "Dessert Table", span: "wide" },
 ];
 
 export type Testimonial = {

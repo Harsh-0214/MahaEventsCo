@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand palette — warm neutrals with olive accent (from logo) */
-  --color-ivory: #faf7f2;
-  --color-cream: #f4ede3;
-  --color-beige: #e8dcc8;
-  --color-taupe: #cabca8;
+  /* Brand palette — warm neutrals + deep espresso, olive accent (from logo), gold as a lively secondary */
+  --color-ivory: #f7f2e9;
+  --color-cream: #efe4d2;
+  --color-beige: #e2d2b4;
+  --color-taupe: #b7a37e;
   --color-olive: #5f6b41;
-  --color-olive-dark: #454e2f;
+  --color-olive-dark: #3a4326;
   --color-olive-light: #8a9767;
-  --color-gold: #b08d57;
-  --color-ink: #2b2621;
-  --color-ink-soft: #56504a;
+  --color-gold: #c9963f;
+  --color-gold-bright: #e8b45a;
+  --color-ink: #1e1a15;
+  --color-ink-soft: #4a4137;
+  --color-espresso: #24201a;
+  --color-espresso-deep: #14110d;
 
   --color-bg: var(--color-ivory);
   --color-surface: #ffffff;
@@ -22,6 +25,13 @@
   --color-accent-soft: var(--color-olive-light);
   --color-secondary: var(--color-gold);
   --color-border: var(--color-taupe);
+
+  /* Dark, high-contrast section (About / Testimonials / footer accents) */
+  --color-dark-bg: var(--color-espresso);
+  --color-dark-bg-deep: var(--color-espresso-deep);
+  --color-dark-text: var(--color-ivory);
+  --color-dark-text-muted: #c9beac;
+  --color-dark-border: #4a4030;
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
@@ -36,8 +46,11 @@
   --color-olive-dark: var(--color-olive-dark);
   --color-olive-light: var(--color-olive-light);
   --color-gold: var(--color-gold);
+  --color-gold-bright: var(--color-gold-bright);
   --color-ink: var(--color-ink);
   --color-ink-soft: var(--color-ink-soft);
+  --color-espresso: var(--color-espresso);
+  --color-espresso-deep: var(--color-espresso-deep);
 
   --color-bg: var(--color-bg);
   --color-surface: var(--color-surface);
@@ -48,6 +61,12 @@
   --color-accent-soft: var(--color-accent-soft);
   --color-secondary: var(--color-secondary);
   --color-border: var(--color-border);
+
+  --color-dark-bg: var(--color-dark-bg);
+  --color-dark-bg-deep: var(--color-dark-bg-deep);
+  --color-dark-text: var(--color-dark-text);
+  --color-dark-text-muted: var(--color-dark-text-muted);
+  --color-dark-border: var(--color-dark-border);
 
   --font-serif: var(--font-fraunces);
   --font-sans: var(--font-jost);
@@ -65,6 +84,19 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  position: relative;
+}
+
+/* Subtle paper-grain texture so flat color fields read as designed, not blank */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {

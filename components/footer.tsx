@@ -35,10 +35,10 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-(--color-border)/60 bg-(--color-cream)">
+    <footer className="border-t border-(--color-dark-border) bg-(--color-dark-bg-deep)">
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-14 lg:px-10">
         <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
-          <span className="font-(family-name:--font-serif) text-2xl text-(--color-accent-strong)">
+          <span className="font-(family-name:--font-serif) text-2xl text-(--color-dark-text)">
             {siteConfig.name}
           </span>
 
@@ -47,14 +47,14 @@ export function Footer() {
               href={siteConfig.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-11 items-center gap-2 text-sm text-(--color-text-muted) transition-colors duration-200 hover:text-(--color-accent-strong)"
+              className="flex min-h-11 items-center gap-2 text-sm text-(--color-dark-text-muted) transition-colors duration-200 hover:text-(--color-gold-bright)"
             >
               <InstagramIcon />
               {siteConfig.instagramHandle}
             </a>
             <a
               href={`mailto:${siteConfig.email}`}
-              className="flex min-h-11 items-center gap-2 text-sm text-(--color-text-muted) transition-colors duration-200 hover:text-(--color-accent-strong)"
+              className="flex min-h-11 items-center gap-2 text-sm text-(--color-dark-text-muted) transition-colors duration-200 hover:text-(--color-gold-bright)"
             >
               <MailIcon />
               {siteConfig.email}
@@ -62,7 +62,7 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="text-xs text-(--color-text-muted)">
+        <p className="text-xs text-(--color-dark-text-muted)">
           © {year} {siteConfig.name}. All rights reserved.
         </p>
       </div>
