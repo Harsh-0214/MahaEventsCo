@@ -1,6 +1,6 @@
-// Generates rich, brand-consistent botanical illustrations for the prototype —
-// a confident stationery-illustration style (dense florals, gold linework,
-// deep jewel-toned grounds) rather than an attempt at fake photography.
+// Generates soft, blush-toned line-art illustrations for the prototype —
+// delicate single-stroke botanicals on a candlelit cream ground, matching the
+// Maha Events Co brand mark and moodboard (blush, brass gold, olive ink).
 // Client photography replaces these files 1:1 (same filenames) when available.
 import { writeFileSync, mkdirSync } from "node:fs";
 
@@ -15,195 +15,229 @@ function seededRand(seed) {
   };
 }
 
-const TONES = {
-  olive: { bg: ["#3a4326", "#1c2113"], petal: "#f4ede3", petal2: "#c9a469", line: "#c9a469", deep: "#12150c" },
-  ink: { bg: ["#332a20", "#191410"], petal: "#e8dcc8", petal2: "#b08d57", line: "#c9a469", deep: "#0f0c09" },
-  gold: { bg: ["#7a5a28", "#40300f"], petal: "#f4ede3", petal2: "#5f6b41", line: "#f4ede3", deep: "#241a0a" },
-  rose: { bg: ["#5c342c", "#2c1815"], petal: "#f0ddc4", petal2: "#c9a469", line: "#e8b45a", deep: "#1a0f0d" },
-  taupe: { bg: ["#544a37", "#2c261b"], petal: "#f4ede3", petal2: "#8a9767", line: "#c9a469", deep: "#181510" },
+const INK = "#5b4f3d";
+const GOLD = "#ad8253";
+const GOLD_SOFT = "#c99a5f";
+const TEAL = "#3c6b68";
+
+const GROUNDS = {
+  blush: ["#f6e9dd", "#e9cdb6"],
+  cream: ["#faf3ea", "#efdccb"],
+  rose: ["#f5e2d8", "#e3bfab"],
+  sage: ["#f0ece0", "#d9d3ba"],
+  teal: ["#eee5da", "#d7c9b4"],
 };
 
-function flower(cx, cy, r, petalColor, centerColor, petals, rand) {
-  let s = `<g>`;
+function outlineFlower(cx, cy, r, stroke, rand, petals = 5) {
+  let s = `<g fill="none" stroke="${stroke}" stroke-width="${Math.max(1, r * 0.05)}">`;
   for (let i = 0; i < petals; i++) {
-    const angle = (i / petals) * Math.PI * 2 + rand() * 0.25;
-    const px = cx + Math.cos(angle) * r * 0.6;
-    const py = cy + Math.sin(angle) * r * 0.6;
-    s += `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(r * 0.62).toFixed(1)}" ry="${(r * 0.38).toFixed(1)}" fill="${petalColor}" opacity="0.96" transform="rotate(${(angle * 180) / Math.PI} ${px.toFixed(1)} ${py.toFixed(1)})"/>`;
+    const angle = (i / petals) * Math.PI * 2 + rand() * 0.2;
+    const px = cx + Math.cos(angle) * r * 0.62;
+    const py = cy + Math.sin(angle) * r * 0.62;
+    s += `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(r * 0.5).toFixed(1)}" ry="${(r * 0.3).toFixed(1)}" transform="rotate(${(angle * 180) / Math.PI} ${px.toFixed(1)} ${py.toFixed(1)})"/>`;
   }
-  s += `<circle cx="${cx}" cy="${cy}" r="${(r * 0.36).toFixed(1)}" fill="${centerColor}"/>`;
+  s += `<circle cx="${cx}" cy="${cy}" r="${(r * 0.14).toFixed(1)}" fill="${stroke}" stroke="none"/>`;
   s += `</g>`;
   return s;
 }
 
-function leaf(cx, cy, len, angleDeg, color, opacity) {
-  return `<path d="M ${cx} ${cy} Q ${cx + len * 0.3} ${cy - len * 0.5} ${cx + len} ${cy} Q ${cx + len * 0.3} ${cy + len * 0.5} ${cx} ${cy} Z" fill="${color}" opacity="${opacity}" transform="rotate(${angleDeg} ${cx} ${cy})"/>`;
-}
-
-function cluster(cx, cy, scale, tone, rand) {
-  let s = "";
-  const leafCount = 5 + Math.floor(rand() * 3);
-  for (let i = 0; i < leafCount; i++) {
-    const a = rand() * 360;
-    const len = scale * (0.55 + rand() * 0.5);
-    s += leaf(
-      cx + (rand() - 0.5) * scale * 0.6,
-      cy + (rand() - 0.5) * scale * 0.6,
-      len,
-      a,
-      i % 2 ? tone.petal2 : tone.line,
-      0.7 + rand() * 0.15,
-    );
+function outlineLeafSprig(cx, cy, len, angleDeg, stroke) {
+  const sw = Math.max(1, len * 0.045);
+  let s = `<g stroke="${stroke}" stroke-width="${sw}" fill="none" transform="rotate(${angleDeg} ${cx} ${cy})">`;
+  s += `<path d="M ${cx} ${cy} Q ${cx + len * 0.5} ${cy - len * 0.1} ${cx + len} ${cy}" />`;
+  for (let i = 1; i <= 3; i++) {
+    const t = i / 4;
+    const lx = cx + len * t;
+    const dir = i % 2 === 0 ? -1 : 1;
+    s += `<path d="M ${lx} ${cy - dir * 2} q ${len * 0.12} ${-dir * len * 0.16} ${len * 0.05} ${-dir * len * 0.28}" />`;
   }
-  const flowerCount = 3 + Math.floor(rand() * 3);
-  for (let i = 0; i < flowerCount; i++) {
-    const fx = cx + (rand() - 0.5) * scale * 0.9;
-    const fy = cy + (rand() - 0.5) * scale * 0.9;
-    const fr = scale * (0.16 + rand() * 0.14);
-    s += flower(fx, fy, fr, i % 2 ? tone.petal : tone.petal2, tone.deep, 6, rand);
-  }
+  s += `</g>`;
   return s;
 }
 
-function grainFilter(id) {
-  return `<filter id="${id}"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="noise"/><feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/></filter>`;
+function candle(x, y, h, w, glowColor) {
+  return `
+    <rect x="${x - w / 2}" y="${y - h}" width="${w}" height="${h}" rx="${w / 2}" fill="none" stroke="${INK}" stroke-width="${Math.max(1, w * 0.12)}"/>
+    <circle cx="${x}" cy="${y - h - w * 1.6}" r="${w * 2.6}" fill="${glowColor}" opacity="0.28"/>
+    <path d="M ${x} ${y - h - 2} q ${w * 0.5} ${-w * 1.4} 0 ${-w * 2.4} q ${-w * 0.5} ${w} 0 ${w * 2.4}" fill="${GOLD_SOFT}"/>
+  `;
 }
 
-function archMotif(w, h, tone, rand) {
+function archMotif(w, h, rand, accent) {
   const cx = w / 2;
-  const baseY = h * 0.92;
-  const archW = w * 0.58;
-  const archTopY = h * 0.16;
+  const baseY = h * 0.94;
+  const archW = w * 0.5;
+  const archTopY = h * 0.14;
   const r = archW / 2;
-  const strokeW = Math.max(6, w * 0.008);
-  let s = `<path d="M ${cx - r} ${baseY} L ${cx - r} ${archTopY + r} A ${r} ${r} 0 0 1 ${cx + r} ${archTopY + r} L ${cx + r} ${baseY}" fill="none" stroke="${tone.line}" stroke-width="${strokeW}" opacity="0.85"/>`;
+  const sw = Math.max(2, w * 0.006);
+  let s = `<path d="M ${cx - r} ${baseY} L ${cx - r} ${archTopY + r} A ${r} ${r} 0 0 1 ${cx + r} ${archTopY + r} L ${cx + r} ${baseY}" fill="none" stroke="${GOLD}" stroke-width="${sw}"/>`;
   const unit = Math.min(w, h);
-  for (let i = 0; i < 6; i++) {
-    const t = i / 5;
+  const stops = [0, 0.2, 0.4, 0.6, 0.8, 1];
+  for (const t of stops) {
     const angle = Math.PI + t * Math.PI;
     const px = cx + Math.cos(angle) * r;
     const py = archTopY + r - Math.sin(angle) * r;
-    s += cluster(px, py, unit * 0.16, tone, rand);
+    s += outlineFlower(px, py, unit * 0.05 + rand() * unit * 0.02, INK, rand);
+    s += outlineLeafSprig(px, py, unit * 0.07, rand() * 60 - 30, accent);
   }
-  s += cluster(cx, baseY - unit * 0.02, unit * 0.22, tone, rand);
-  s += cluster(cx - r * 0.9, baseY - unit * 0.02, unit * 0.16, tone, rand);
-  s += cluster(cx + r * 0.9, baseY - unit * 0.02, unit * 0.16, tone, rand);
-  // corner sprays so the frame reads full even when cropped by object-cover
-  s += cluster(w * 0.08, h * 0.14, unit * 0.16, tone, rand);
-  s += cluster(w * 0.92, h * 0.14, unit * 0.16, tone, rand);
-  s += cluster(w * 0.08, h * 0.5, unit * 0.13, tone, rand);
-  s += cluster(w * 0.92, h * 0.5, unit * 0.13, tone, rand);
+  s += outlineFlower(cx, baseY - 4, unit * 0.045, INK, rand);
+  for (let i = 0; i < 4; i++) {
+    s += candle(w * (0.2 + i * 0.2), baseY + unit * 0.02, unit * (0.05 + rand() * 0.03), unit * 0.012, GOLD_SOFT);
+  }
   return s;
 }
 
-function tableMotif(w, h, tone, rand) {
+function heartArchMotif(w, h, rand, accent, opts = {}) {
+  const { cxRatio = 0.5, scale = 1, topYRatio = 0.16 } = opts;
+  const cx = w * cxRatio;
+  const topY = h * topYRatio;
+  const bottomY = topY + h * 0.46 * scale;
+  const halfW = w * 0.22 * scale;
+  const sw = Math.max(2, w * 0.007);
+  const path = `M ${cx} ${bottomY}
+    C ${cx - halfW * 1.6} ${bottomY - halfW * 0.6}, ${cx - halfW} ${topY}, ${cx - halfW * 0.4} ${topY}
+    C ${cx - halfW * 0.1} ${topY}, ${cx} ${topY + halfW * 0.35}, ${cx} ${topY + halfW * 0.35}
+    C ${cx} ${topY + halfW * 0.35}, ${cx + halfW * 0.1} ${topY}, ${cx + halfW * 0.4} ${topY}
+    C ${cx + halfW} ${topY}, ${cx + halfW * 1.6} ${bottomY - halfW * 0.6}, ${cx} ${bottomY} Z`;
+  let s = `<path d="${path}" fill="none" stroke="${GOLD}" stroke-width="${sw}"/>`;
   const unit = Math.min(w, h);
-  const lineY = h * 0.62;
-  let s = `<rect x="0" y="${lineY}" width="${w}" height="${h - lineY}" fill="${tone.deep}" opacity="0.55"/>`;
-  s += `<rect x="0" y="${lineY}" width="${w}" height="${Math.max(3, unit * 0.006)}" fill="${tone.line}" opacity="0.6"/>`;
-  const positions = [0.16, 0.38, 0.62, 0.84];
-  positions.forEach((p) => {
-    const ch = unit * (0.22 + rand() * 0.1);
-    const cw = unit * 0.028;
-    const x = w * p;
-    const flicker = 0.85 + rand() * 0.3;
-    s += `<rect x="${x - cw / 2}" y="${lineY - ch}" width="${cw}" height="${ch}" rx="${cw / 2}" fill="${tone.petal}" opacity="0.95"/>`;
-    s += `<ellipse cx="${x}" cy="${lineY - ch - unit * 0.02}" rx="${3.5 * flicker}" ry="${8 * flicker}" fill="#f0b74a"/>`;
-    s += `<ellipse cx="${x}" cy="${lineY - ch - unit * 0.015}" rx="${unit * 0.03 * flicker}" ry="${unit * 0.045 * flicker}" fill="#f0b74a" opacity="0.22" filter="blur(2px)"/>`;
-  });
-  s += cluster(w * 0.28, lineY - unit * 0.01, unit * 0.2, tone, rand);
-  s += cluster(w * 0.72, lineY - unit * 0.01, unit * 0.2, tone, rand);
-  s += cluster(w * 0.5, h * 0.16, unit * 0.16, tone, rand);
+  const count = 10;
+  for (let i = 0; i < count; i++) {
+    const t = i / (count - 1);
+    const angle = Math.PI * 0.15 + t * Math.PI * 1.7;
+    const px = cx + Math.cos(angle) * halfW * 1.15;
+    const py = (topY + bottomY) / 2 + Math.sin(angle) * (bottomY - topY) * 0.42;
+    s += outlineFlower(px, py, unit * 0.035 + rand() * unit * 0.015, INK, rand);
+  }
+  s += outlineLeafSprig(cx - halfW * 0.6, topY + halfW * 0.5, unit * 0.06, -30, accent);
+  s += outlineLeafSprig(cx + halfW * 0.6, topY + halfW * 0.5, unit * 0.06, 30, accent);
+  for (let i = 0; i < 5; i++) {
+    s += candle(w * (0.14 + i * 0.18), h * 0.86, unit * (0.05 + rand() * 0.035), unit * 0.012, GOLD_SOFT);
+  }
   return s;
 }
 
-function sprigMotif(w, h, tone, rand) {
+function tableMotif(w, h, rand, accent) {
+  const unit = Math.min(w, h);
+  const lineY = h * 0.6;
+  let s = `<line x1="0" y1="${lineY}" x2="${w}" y2="${lineY}" stroke="${GOLD}" stroke-width="${Math.max(1.5, unit * 0.005)}"/>`;
+  const positions = [0.18, 0.4, 0.62, 0.84];
+  positions.forEach((p) => {
+    s += candle(w * p, lineY, unit * (0.16 + rand() * 0.08), unit * 0.022, GOLD_SOFT);
+  });
+  s += outlineFlower(w * 0.28, lineY - 4, unit * 0.06, INK, rand);
+  s += outlineFlower(w * 0.72, lineY - 4, unit * 0.06, INK, rand);
+  s += outlineLeafSprig(w * 0.5, h * 0.2, unit * 0.1, 0, accent);
+  return s;
+}
+
+function sprigMotif(w, h, rand, accent) {
   const unit = Math.min(w, h);
   let s = "";
-  s += cluster(w * 0.24, h * 0.22, unit * 0.34, tone, rand);
-  s += cluster(w * 0.78, h * 0.34, unit * 0.28, tone, rand);
-  s += cluster(w * 0.32, h * 0.72, unit * 0.3, tone, rand);
-  s += cluster(w * 0.74, h * 0.82, unit * 0.24, tone, rand);
-  s += cluster(w * 0.52, h * 0.5, unit * 0.2, tone, rand);
+  const spots = [
+    [0.24, 0.22],
+    [0.78, 0.3],
+    [0.3, 0.72],
+    [0.72, 0.8],
+    [0.5, 0.5],
+  ];
+  spots.forEach(([px, py], i) => {
+    s += outlineFlower(w * px, h * py, unit * (0.06 + rand() * 0.03), INK, rand);
+    s += outlineLeafSprig(w * px, h * py, unit * 0.09, i * 70 + rand() * 40, i % 2 ? accent : GOLD);
+  });
   return s;
 }
 
-function paisleyMotif(w, h, tone, rand) {
+function paisleyMotif(w, h, rand, accent) {
   const unit = Math.min(w, h);
   const cx = w / 2;
   const cy = h * 0.42;
   let s = "";
-  for (let ring = 0; ring < 3; ring++) {
-    const r = unit * (0.14 + ring * 0.13);
-    s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${tone.line}" stroke-width="${Math.max(2, unit * 0.004)}" opacity="${0.5 - ring * 0.12}"/>`;
+  for (let ring = 0; ring < 2; ring++) {
+    const r = unit * (0.16 + ring * 0.14);
+    s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${GOLD}" stroke-width="${Math.max(1, unit * 0.003)}"/>`;
   }
-  const petalCount = 10;
+  const petalCount = 8;
   for (let i = 0; i < petalCount; i++) {
     const angle = (i / petalCount) * Math.PI * 2;
-    const r = unit * 0.34;
+    const r = unit * 0.3;
     const x = cx + Math.cos(angle) * r;
     const y = cy + Math.sin(angle) * r * 0.85;
-    s += flower(x, y, unit * (0.05 + rand() * 0.03), i % 2 ? tone.petal : tone.petal2, tone.deep, 6, rand);
+    s += outlineFlower(x, y, unit * 0.045, i % 2 ? INK : accent, rand);
   }
-  s += flower(cx, cy, unit * 0.11, tone.petal, tone.deep, 8, rand);
-  s += cluster(w * 0.14, h * 0.86, unit * 0.18, tone, rand);
-  s += cluster(w * 0.86, h * 0.86, unit * 0.18, tone, rand);
+  s += outlineFlower(cx, cy, unit * 0.09, INK, rand, 7);
+  s += outlineLeafSprig(w * 0.16, h * 0.84, unit * 0.12, -20, GOLD);
+  s += outlineLeafSprig(w * 0.84, h * 0.84, unit * 0.12, 20, accent);
   return s;
 }
 
-function svgWrapper(w, h, toneKey, seed, motif) {
+function grainFilter(id) {
+  return `<filter id="${id}"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/><feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.035 0"/></filter>`;
+}
+
+function svgWrapper(w, h, groundKey, seed, motif, accentKey = "olive", heartOpts) {
   const rand = seededRand(seed);
-  const tone = TONES[toneKey];
+  const ground = GROUNDS[groundKey];
+  const accent = accentKey === "teal" ? TEAL : GOLD_SOFT;
   const gradId = `g${seed}`;
-  const vignetteId = `v${seed}`;
+  const glowId = `glow${seed}`;
   const grainId = `n${seed}`;
 
   let motifMarkup = "";
-  if (motif === "arch") motifMarkup = archMotif(w, h, tone, rand);
-  else if (motif === "table") motifMarkup = tableMotif(w, h, tone, rand);
-  else if (motif === "sprig") motifMarkup = sprigMotif(w, h, tone, rand);
-  else if (motif === "paisley") motifMarkup = paisleyMotif(w, h, tone, rand);
+  if (motif === "arch") motifMarkup = archMotif(w, h, rand, accent);
+  else if (motif === "heart") motifMarkup = heartArchMotif(w, h, rand, accent, heartOpts);
+  else if (motif === "table") motifMarkup = tableMotif(w, h, rand, accent);
+  else if (motif === "sprig") motifMarkup = sprigMotif(w, h, rand, accent);
+  else if (motif === "paisley") motifMarkup = paisleyMotif(w, h, rand, accent);
 
   return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" role="img">
   <defs>
-    <linearGradient id="${gradId}" x1="0.1" y1="0" x2="0.9" y2="1">
-      <stop offset="0%" stop-color="${tone.bg[0]}"/>
-      <stop offset="100%" stop-color="${tone.bg[1]}"/>
+    <linearGradient id="${gradId}" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="${ground[0]}"/>
+      <stop offset="100%" stop-color="${ground[1]}"/>
     </linearGradient>
-    <radialGradient id="${vignetteId}" cx="50%" cy="42%" r="72%">
-      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+    <radialGradient id="${glowId}" cx="50%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#fff6e8" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#fff6e8" stop-opacity="0"/>
     </radialGradient>
     ${grainFilter(grainId)}
   </defs>
   <rect width="${w}" height="${h}" fill="url(#${gradId})"/>
+  <rect width="${w}" height="${h}" fill="url(#${glowId})"/>
   ${motifMarkup}
-  <rect width="${w}" height="${h}" fill="url(#${vignetteId})"/>
-  <rect width="${w}" height="${h}" filter="url(#${grainId})" opacity="0.5"/>
+  <rect width="${w}" height="${h}" filter="url(#${grainId})" opacity="0.4"/>
 </svg>`;
 }
 
 const images = [
-  { name: "hero", w: 1920, h: 1280, tone: "ink", seed: 1, motif: "arch" },
-  { name: "about-portrait", w: 900, h: 1100, tone: "olive", seed: 2, motif: "sprig" },
-  { name: "service-wedding", w: 800, h: 1000, tone: "ink", seed: 3, motif: "arch" },
-  { name: "service-southasian", w: 800, h: 1000, tone: "gold", seed: 4, motif: "paisley" },
-  { name: "service-proposal", w: 800, h: 1000, tone: "rose", seed: 5, motif: "sprig" },
-  { name: "service-backdrop", w: 800, h: 1000, tone: "olive", seed: 6, motif: "arch" },
-  { name: "gallery-1", w: 800, h: 1100, tone: "olive", seed: 7, motif: "sprig" },
-  { name: "gallery-2", w: 1000, h: 750, tone: "ink", seed: 8, motif: "arch" },
-  { name: "gallery-3", w: 900, h: 900, tone: "rose", seed: 9, motif: "sprig" },
-  { name: "gallery-4", w: 1400, h: 800, tone: "gold", seed: 10, motif: "paisley" },
-  { name: "gallery-5", w: 900, h: 900, tone: "taupe", seed: 11, motif: "table" },
-  { name: "gallery-6", w: 800, h: 1100, tone: "olive", seed: 12, motif: "sprig" },
-  { name: "gallery-7", w: 900, h: 900, tone: "rose", seed: 13, motif: "table" },
-  { name: "gallery-8", w: 900, h: 1000, tone: "gold", seed: 14, motif: "paisley" },
-  { name: "gallery-9", w: 1400, h: 800, tone: "ink", seed: 15, motif: "table" },
-  { name: "contact-side", w: 900, h: 1200, tone: "olive", seed: 16, motif: "arch" },
+  {
+    name: "hero",
+    w: 1920,
+    h: 1280,
+    ground: "blush",
+    seed: 1,
+    motif: "heart",
+    heartOpts: { cxRatio: 0.7, scale: 0.8, topYRatio: 0.06 },
+  },
+  { name: "about-portrait", w: 900, h: 1100, ground: "sage", seed: 2, motif: "sprig" },
+  { name: "service-wedding", w: 800, h: 1000, ground: "blush", seed: 3, motif: "arch" },
+  { name: "service-southasian", w: 800, h: 1000, ground: "teal", seed: 4, motif: "paisley", accent: "teal" },
+  { name: "service-proposal", w: 800, h: 1000, ground: "rose", seed: 5, motif: "heart" },
+  { name: "service-backdrop", w: 800, h: 1000, ground: "sage", seed: 6, motif: "arch" },
+  { name: "gallery-1", w: 800, h: 1100, ground: "sage", seed: 7, motif: "sprig" },
+  { name: "gallery-2", w: 1000, h: 750, ground: "blush", seed: 8, motif: "arch" },
+  { name: "gallery-3", w: 900, h: 900, ground: "rose", seed: 9, motif: "sprig" },
+  { name: "gallery-4", w: 1400, h: 800, ground: "teal", seed: 10, motif: "paisley", accent: "teal" },
+  { name: "gallery-5", w: 900, h: 900, ground: "cream", seed: 11, motif: "table" },
+  { name: "gallery-6", w: 800, h: 1100, ground: "sage", seed: 12, motif: "sprig" },
+  { name: "gallery-7", w: 900, h: 900, ground: "rose", seed: 13, motif: "heart" },
+  { name: "gallery-8", w: 900, h: 1000, ground: "teal", seed: 14, motif: "paisley", accent: "teal" },
+  { name: "gallery-9", w: 1400, h: 800, ground: "cream", seed: 15, motif: "table" },
+  { name: "contact-side", w: 900, h: 1200, ground: "blush", seed: 16, motif: "arch" },
 ];
 
 for (const img of images) {
-  const svg = svgWrapper(img.w, img.h, img.tone, img.seed, img.motif);
+  const svg = svgWrapper(img.w, img.h, img.ground, img.seed, img.motif, img.accent, img.heartOpts);
   writeFileSync(new URL(`${img.name}.svg`, OUT), svg, "utf8");
 }
 

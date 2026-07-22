@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import { InquiryForm } from "@/components/inquiry-form";
 import { Reveal } from "@/components/reveal";
 import { SectionDivider } from "@/components/section-divider";
+import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
 
 export function Contact() {
   return (
@@ -36,17 +39,28 @@ export function Contact() {
 
         <div>
           <Reveal>
-            <p className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-(--color-accent-strong)">
-              Contact
-            </p>
-            <h2 className="font-(family-name:--font-serif) text-4xl italic leading-tight text-(--color-text) sm:text-5xl">
-              Let&rsquo;s start planning.
-            </h2>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-(--color-text-muted)">
-              Share a few details about your celebration and we&rsquo;ll be in
-              touch to talk through your vision.
-            </p>
-            <SectionDivider />
+            {(revealed) => (
+              <>
+                <p className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-(--color-accent-strong)">
+                  Contact
+                </p>
+                <h2 className="font-(family-name:--font-serif) text-4xl italic leading-tight text-(--color-text) sm:text-5xl">
+                  <VerticalCutReveal
+                    autoStart={revealed}
+                    splitBy="words"
+                    staggerDuration={0.05}
+                    transition={{ type: "spring", stiffness: 170, damping: 24 }}
+                  >
+                    {"Let’s start planning."}
+                  </VerticalCutReveal>
+                </h2>
+                <p className="mt-4 max-w-xl text-base leading-relaxed text-(--color-text-muted)">
+                  Share a few details about your celebration and we&rsquo;ll
+                  be in touch to talk through your vision.
+                </p>
+                <SectionDivider />
+              </>
+            )}
           </Reveal>
 
           <Reveal delayMs={80} className="mt-8">

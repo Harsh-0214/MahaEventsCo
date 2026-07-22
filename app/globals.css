@@ -1,23 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand palette — warm neutrals + deep espresso, olive accent (from logo), gold as a lively secondary */
-  --color-ivory: #f7f2e9;
-  --color-cream: #efe4d2;
-  --color-beige: #e2d2b4;
-  --color-taupe: #b7a37e;
-  --color-olive: #5f6b41;
-  --color-olive-dark: #3a4326;
-  --color-olive-light: #8a9767;
-  --color-gold: #c9963f;
-  --color-gold-bright: #e8b45a;
-  --color-ink: #1e1a15;
-  --color-ink-soft: #4a4137;
-  --color-espresso: #24201a;
-  --color-espresso-deep: #14110d;
+  /* Brand palette — soft blush & candlelight, matching the logo + moodboard:
+     dusty blush/cream grounds, warm brass-gold, deep olive-brown ink linework */
+  --color-ivory: #faf3ec;
+  --color-cream: #f3e2d3;
+  --color-blush: #edd6c4;
+  --color-blush-deep: #ddb99e;
+  --color-taupe: #c3a488;
+  --color-olive: #6b6146;
+  --color-olive-dark: #4a4230;
+  --color-olive-light: #8f8465;
+  --color-gold: #ad8253;
+  --color-gold-bright: #c99a5f;
+  --color-teal: #2f5a58;
+  --color-ink: #43392c;
+  --color-ink-soft: #6b5f4c;
 
   --color-bg: var(--color-ivory);
-  --color-surface: #ffffff;
+  --color-surface: #fffdfa;
   --color-text: var(--color-ink);
   --color-text-muted: var(--color-ink-soft);
   --color-accent: var(--color-olive);
@@ -26,12 +27,13 @@
   --color-secondary: var(--color-gold);
   --color-border: var(--color-taupe);
 
-  /* Dark, high-contrast section (About / Testimonials / footer accents) */
-  --color-dark-bg: var(--color-espresso);
-  --color-dark-bg-deep: var(--color-espresso-deep);
-  --color-dark-text: var(--color-ivory);
-  --color-dark-text-muted: #c9beac;
-  --color-dark-border: #4a4030;
+  /* Deeper blush section (About / Testimonials / footer) — still warm and
+     light, never black, so contrast comes from tone and ink, not darkness */
+  --color-dark-bg: var(--color-blush-deep);
+  --color-dark-bg-deep: #cfa287;
+  --color-dark-text: var(--color-ink);
+  --color-dark-text-muted: #4f4330;
+  --color-dark-border: #b98f71;
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
@@ -40,17 +42,17 @@
 @theme inline {
   --color-ivory: var(--color-ivory);
   --color-cream: var(--color-cream);
-  --color-beige: var(--color-beige);
+  --color-blush: var(--color-blush);
+  --color-blush-deep: var(--color-blush-deep);
   --color-taupe: var(--color-taupe);
   --color-olive: var(--color-olive);
   --color-olive-dark: var(--color-olive-dark);
   --color-olive-light: var(--color-olive-light);
   --color-gold: var(--color-gold);
   --color-gold-bright: var(--color-gold-bright);
+  --color-teal: var(--color-teal);
   --color-ink: var(--color-ink);
   --color-ink-soft: var(--color-ink-soft);
-  --color-espresso: var(--color-espresso);
-  --color-espresso-deep: var(--color-espresso-deep);
 
   --color-bg: var(--color-bg);
   --color-surface: var(--color-surface);
@@ -68,7 +70,7 @@
   --color-dark-text-muted: var(--color-dark-text-muted);
   --color-dark-border: var(--color-dark-border);
 
-  --font-serif: var(--font-fraunces);
+  --font-serif: var(--font-cormorant);
   --font-sans: var(--font-jost);
 }
 

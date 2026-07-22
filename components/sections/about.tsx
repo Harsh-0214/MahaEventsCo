@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { Reveal } from "@/components/reveal";
 import { SectionDivider } from "@/components/section-divider";
+import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
 
 export function About() {
   return (
@@ -23,24 +26,36 @@ export function About() {
         </Reveal>
 
         <Reveal className="order-2 lg:order-1">
-          <p className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-(--color-gold-bright)">
-            About Maha
-          </p>
-          <h2 className="font-(family-name:--font-serif) text-4xl italic leading-tight sm:text-5xl">
-            Styling moments that feel entirely yours.
-          </h2>
-          <SectionDivider tone="dark" />
-          <p className="mt-2 max-w-lg text-base leading-relaxed text-(--color-dark-text-muted) sm:text-lg">
-            Maha Events Co designs and styles weddings, South Asian
-            celebrations, and proposal setups with a warm, editorial touch.
-            From the first vision board to the final petal, every detail is
-            considered — so all you have to do is show up and celebrate.
-          </p>
-          <p className="mt-4 max-w-lg text-base leading-relaxed text-(--color-dark-text-muted) sm:text-lg">
-            Maha and her team handle the florals, the drapery, the lighting,
-            and the hundred small decisions in between — so your day looks
-            as good as it feels.
-          </p>
+          {(revealed) => (
+            <>
+              <p className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-(--color-accent-strong)">
+                About Maha
+              </p>
+              <h2 className="font-(family-name:--font-serif) text-4xl italic leading-tight sm:text-5xl">
+                <VerticalCutReveal
+                  autoStart={revealed}
+                  splitBy="words"
+                  staggerDuration={0.05}
+                  transition={{ type: "spring", stiffness: 170, damping: 24 }}
+                >
+                  {"Styling moments that feel entirely yours."}
+                </VerticalCutReveal>
+              </h2>
+              <SectionDivider tone="dark" />
+              <p className="mt-2 max-w-lg text-base leading-relaxed text-(--color-dark-text-muted) sm:text-lg">
+                Maha Events Co designs and styles weddings, South Asian
+                celebrations, and proposal setups with a warm, editorial touch.
+                From the first vision board to the final petal, every detail
+                is considered — so all you have to do is show up and
+                celebrate.
+              </p>
+              <p className="mt-4 max-w-lg text-base leading-relaxed text-(--color-dark-text-muted) sm:text-lg">
+                Maha and her team handle the florals, the drapery, the
+                lighting, and the hundred small decisions in between — so
+                your day looks as good as it feels.
+              </p>
+            </>
+          )}
         </Reveal>
       </div>
     </section>

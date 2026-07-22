@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 
 type RevealProps = {
-  children: ReactNode;
+  children: ReactNode | ((revealed: boolean) => ReactNode);
   as?: ElementType;
   delayMs?: number;
   className?: string;
@@ -64,7 +64,7 @@ export function Reveal({ children, as: Tag = "div", delayMs = 0, className }: Re
 
   return (
     <Tag ref={ref} data-reveal data-revealed={revealed} className={className}>
-      {children}
+      {typeof children === "function" ? children(revealed) : children}
     </Tag>
   );
 }

@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { navLinks, siteConfig } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/ui/magnetic";
 
 function MenuIcon({ open }: { open: boolean }) {
   return (
@@ -122,7 +123,7 @@ export function Navbar() {
           href="#hero"
           className={cn(
             "font-(family-name:--font-serif) text-xl tracking-wide transition-colors duration-300",
-            isSolid ? "text-(--color-accent-strong)" : "text-white",
+            isSolid ? "text-(--color-accent-strong)" : "text-(--color-ink)",
           )}
         >
           {siteConfig.name}
@@ -137,11 +138,11 @@ export function Navbar() {
                   "relative py-2 text-sm font-medium tracking-wide transition-colors duration-200",
                   isSolid
                     ? "text-(--color-text)/80 hover:text-(--color-accent-strong)"
-                    : "text-white/85 hover:text-white",
+                    : "text-(--color-ink)/80 hover:text-(--color-ink)",
                   activeHref === link.href &&
                     (isSolid
                       ? "text-(--color-accent-strong)"
-                      : "text-white"),
+                      : "text-(--color-ink)"),
                 )}
               >
                 {link.label}
@@ -157,17 +158,19 @@ export function Navbar() {
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          className={cn(
-            "hidden rounded-full border px-5 py-2.5 text-sm font-medium transition-[background-color,color,transform] duration-200 ease-out active:scale-[0.97] md:inline-flex",
-            isSolid
-              ? "border-(--color-accent) text-(--color-accent-strong) hover:bg-(--color-accent) hover:text-white"
-              : "border-white/70 text-white hover:bg-white/10",
-          )}
-        >
-          Inquire Now
-        </a>
+        <Magnetic range={70} intensity={0.2} className="hidden md:block">
+          <a
+            href="#contact"
+            className={cn(
+              "inline-flex rounded-full border px-5 py-2.5 text-sm font-medium transition-[background-color,color,transform] duration-200 ease-out active:scale-[0.97]",
+              isSolid
+                ? "border-(--color-accent) text-(--color-accent-strong) hover:bg-(--color-accent) hover:text-white"
+                : "border-(--color-ink)/40 text-(--color-ink) hover:bg-(--color-ink)/5",
+            )}
+          >
+            Inquire Now
+          </a>
+        </Magnetic>
 
         <button
           type="button"
@@ -177,7 +180,7 @@ export function Navbar() {
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           className={cn(
             "-mr-2 flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-200 md:hidden",
-            isSolid ? "text-(--color-accent-strong)" : "text-white",
+            isSolid ? "text-(--color-accent-strong)" : "text-(--color-ink)",
           )}
         >
           <MenuIcon open={menuOpen} />
