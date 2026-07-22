@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
 import { siteConfig } from "@/lib/content";
+import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -16,25 +15,22 @@ const cormorant = Cormorant_Garamond({
 const jost = Jost({
   variable: "--font-jost",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: {
-    default: `${siteConfig.name} | ${siteConfig.tagline}`,
-    template: `%s | ${siteConfig.name}`,
-  },
+  title: `${siteConfig.name} | ${siteConfig.tagline}`,
   description: siteConfig.description,
   keywords: [
-    "wedding decor",
-    "event planning",
     "South Asian wedding decor",
+    "proposal designer",
+    "luxury proposal Sacramento",
+    "wedding decor Bay Area",
     "mehndi decor",
-    "sangeet decor",
-    "proposal setup",
-    "event styling",
+    "rokha decor",
+    "event styling Central Valley",
   ],
   openGraph: {
     title: `${siteConfig.name} | ${siteConfig.tagline}`,
@@ -42,11 +38,6 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteConfig.name} | ${siteConfig.tagline}`,
-    description: siteConfig.description,
   },
 };
 
@@ -57,18 +48,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
-      <body className="flex min-h-dvh flex-col bg-(--color-bg) text-(--color-text) antialiased">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-full focus:bg-(--color-accent) focus:px-5 focus:py-3 focus:text-white"
-        >
-          Skip to main content
-        </a>
-        <Navbar />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+      <body className="bg-(--color-bg) text-(--color-text) antialiased">
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
   );

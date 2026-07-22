@@ -1,76 +1,43 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand palette — soft blush & candlelight, matching the logo + moodboard:
-     dusty blush/cream grounds, warm brass-gold, deep olive-brown ink linework */
-  --color-ivory: #faf3ec;
-  --color-cream: #f3e2d3;
-  --color-blush: #edd6c4;
-  --color-blush-deep: #ddb99e;
-  --color-taupe: #c3a488;
-  --color-olive: #6b6146;
-  --color-olive-dark: #4a4230;
-  --color-olive-light: #8f8465;
-  --color-gold: #ad8253;
-  --color-gold-bright: #c99a5f;
-  --color-teal: #2f5a58;
-  --color-ink: #43392c;
-  --color-ink-soft: #6b5f4c;
+  /* MAHA Events — limewash cream base, champagne gold as the ONLY accent */
+  --color-cream: #ede6d6;
+  --color-cream-soft: #f4efe4;
+  --color-gold: #c9a66b;
+  --color-sage: #8a9a7b;
+  --color-mauve: #b79aa0;
+  --color-plum: #4a2c33;
 
-  --color-bg: var(--color-ivory);
-  --color-surface: #fffdfa;
+  --color-ink: #3a2a2b;
+  --color-ink-soft: #6a5850;
+
+  --color-bg: var(--color-cream);
   --color-text: var(--color-ink);
   --color-text-muted: var(--color-ink-soft);
-  --color-accent: var(--color-olive);
-  --color-accent-strong: var(--color-olive-dark);
-  --color-accent-soft: var(--color-olive-light);
-  --color-secondary: var(--color-gold);
-  --color-border: var(--color-taupe);
+  --color-accent: var(--color-gold);
+  --color-border: color-mix(in srgb, var(--color-plum) 20%, transparent);
 
-  /* Deeper blush section (About / Testimonials / footer) — still warm and
-     light, never black, so contrast comes from tone and ink, not darkness */
-  --color-dark-bg: var(--color-blush-deep);
-  --color-dark-bg-deep: #cfa287;
-  --color-dark-text: var(--color-ink);
-  --color-dark-text-muted: #4f4330;
-  --color-dark-border: #b98f71;
-
-  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-signature: cubic-bezier(0.215, 0.61, 0.355, 1); /* power3.inOut-ish for CSS fallbacks */
 }
 
 @theme inline {
-  --color-ivory: var(--color-ivory);
   --color-cream: var(--color-cream);
-  --color-blush: var(--color-blush);
-  --color-blush-deep: var(--color-blush-deep);
-  --color-taupe: var(--color-taupe);
-  --color-olive: var(--color-olive);
-  --color-olive-dark: var(--color-olive-dark);
-  --color-olive-light: var(--color-olive-light);
+  --color-cream-soft: var(--color-cream-soft);
   --color-gold: var(--color-gold);
-  --color-gold-bright: var(--color-gold-bright);
-  --color-teal: var(--color-teal);
+  --color-sage: var(--color-sage);
+  --color-mauve: var(--color-mauve);
+  --color-plum: var(--color-plum);
   --color-ink: var(--color-ink);
   --color-ink-soft: var(--color-ink-soft);
 
   --color-bg: var(--color-bg);
-  --color-surface: var(--color-surface);
   --color-text: var(--color-text);
   --color-text-muted: var(--color-text-muted);
   --color-accent: var(--color-accent);
-  --color-accent-strong: var(--color-accent-strong);
-  --color-accent-soft: var(--color-accent-soft);
-  --color-secondary: var(--color-secondary);
   --color-border: var(--color-border);
 
-  --color-dark-bg: var(--color-dark-bg);
-  --color-dark-bg-deep: var(--color-dark-bg-deep);
-  --color-dark-text: var(--color-dark-text);
-  --color-dark-text-muted: var(--color-dark-text-muted);
-  --color-dark-border: var(--color-dark-border);
-
-  --font-serif: var(--font-cormorant);
+  --font-display: var(--font-cormorant);
   --font-sans: var(--font-jost);
 }
 
@@ -79,35 +46,23 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  background: var(--color-plum);
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  position: relative;
-}
-
-/* Subtle paper-grain texture so flat color fields read as designed, not blank */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-olive-light);
-  color: var(--color-ivory);
+  background: var(--color-gold);
+  color: var(--color-plum);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-gold);
   outline-offset: 2px;
 }
 
@@ -121,68 +76,19 @@ body::before {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
 
-/* Scroll-triggered reveal — clip-path inset, activated by IntersectionObserver adding [data-revealed] */
-[data-reveal] {
-  clip-path: inset(0 0 100% 0);
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    clip-path 700ms var(--ease-out-strong),
-    opacity 600ms var(--ease-out-strong),
-    transform 600ms var(--ease-out-strong);
+.brand-mark {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
 }
 
-[data-reveal][data-revealed="true"] {
-  clip-path: inset(0 0 0% 0);
-  opacity: 1;
-  transform: translateY(0);
+canvas.journey-canvas {
+  will-change: transform;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
-    clip-path: inset(0 0 0% 0);
-    transform: none;
-    transition: opacity 300ms ease;
-  }
-}
-
-@keyframes select-content-in {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes select-content-out {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-}
-
-.select-content[data-state="open"] {
-  animation: select-content-in 150ms var(--ease-out-strong);
-}
-
-.select-content[data-state="closed"] {
-  animation: select-content-out 100ms var(--ease-in-out-strong);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .select-content[data-state="open"],
-  .select-content[data-state="closed"] {
-    animation: none;
-  }
+.pin-layer {
+  will-change: transform;
 }
