@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand palette — warm neutrals with olive accent (from logo) */
+  --color-ivory: #faf7f2;
+  --color-cream: #f4ede3;
+  --color-beige: #e8dcc8;
+  --color-taupe: #cabca8;
+  --color-olive: #5f6b41;
+  --color-olive-dark: #454e2f;
+  --color-olive-light: #8a9767;
+  --color-gold: #b08d57;
+  --color-ink: #2b2621;
+  --color-ink-soft: #56504a;
+
+  --color-bg: var(--color-ivory);
+  --color-surface: #ffffff;
+  --color-text: var(--color-ink);
+  --color-text-muted: var(--color-ink-soft);
+  --color-accent: var(--color-olive);
+  --color-accent-strong: var(--color-olive-dark);
+  --color-accent-soft: var(--color-olive-light);
+  --color-secondary: var(--color-gold);
+  --color-border: var(--color-taupe);
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+@theme inline {
+  --color-ivory: var(--color-ivory);
+  --color-cream: var(--color-cream);
+  --color-beige: var(--color-beige);
+  --color-taupe: var(--color-taupe);
+  --color-olive: var(--color-olive);
+  --color-olive-dark: var(--color-olive-dark);
+  --color-olive-light: var(--color-olive-light);
+  --color-gold: var(--color-gold);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-strong: var(--color-accent-strong);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-secondary: var(--color-secondary);
+  --color-border: var(--color-border);
+
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-jost);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-olive-light);
+  color: var(--color-ivory);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scroll-triggered reveal — clip-path inset, activated by IntersectionObserver adding [data-revealed] */
+[data-reveal] {
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    clip-path 700ms var(--ease-out-strong),
+    opacity 600ms var(--ease-out-strong),
+    transform 600ms var(--ease-out-strong);
+}
+
+[data-reveal][data-revealed="true"] {
+  clip-path: inset(0 0 0% 0);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    clip-path: inset(0 0 0% 0);
+    transform: none;
+    transition: opacity 300ms ease;
+  }
+}
+
+@keyframes select-content-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes select-content-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.select-content[data-state="open"] {
+  animation: select-content-in 150ms var(--ease-out-strong);
+}
+
+.select-content[data-state="closed"] {
+  animation: select-content-out 100ms var(--ease-in-out-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .select-content[data-state="open"],
+  .select-content[data-state="closed"] {
+    animation: none;
+  }
+}

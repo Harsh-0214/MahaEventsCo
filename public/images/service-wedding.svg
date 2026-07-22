@@ -1,0 +1,15 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg" role="img">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4ede3"/>
+      <stop offset="100%" stop-color="#e8dcc8"/>
+    </linearGradient>
+    <radialGradient id="soft3" cx="50%" cy="35%" r="75%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#g3)"/>
+  <rect width="800" height="1000" fill="url(#soft3)"/>
+  <path d="M 200 820 L 200 620 A 200 200 0 0 1 600 620 L 600 820" fill="none" stroke="#8a9767" stroke-width="2" opacity="0.5"/><g transform="rotate(20 256 420)"><ellipse cx="256" cy="420" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(-30 256 420)"/><ellipse cx="263.2" cy="386.05887450304573" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(-15 263.2 386.05887450304573)"/><ellipse cx="270.4" cy="372" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(0 270.4 372)"/><ellipse cx="277.6" cy="386.05887450304573" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(15 277.6 386.05887450304573)"/><ellipse cx="284.8" cy="420" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(30 284.8 420)"/></g><g transform="rotate(-20 544 420)"><ellipse cx="544" cy="420" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(-30 544 420)"/><ellipse cx="551.2" cy="386.05887450304573" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(-15 551.2 386.05887450304573)"/><ellipse cx="558.4" cy="372" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(0 558.4 372)"/><ellipse cx="565.6" cy="386.05887450304573" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(15 565.6 386.05887450304573)"/><ellipse cx="572.8" cy="420" rx="14.4" ry="6.4" fill="#5f6b41" opacity="0.6" transform="rotate(30 572.8 420)"/></g><circle cx="264.7462277091907" cy="217.15106310013718" r="27.200308641975308" fill="#8a9767" opacity="0.18582133058984912"/><circle cx="202.62345679012347" cy="962.2856652949246" r="21.163528806584363" fill="#8a9767" opacity="0.16828232167352536"/><circle cx="760.0480109739369" cy="719.508744855967" r="20.34588477366255" fill="#b08d57" opacity="0.18991512345679012"/><circle cx="13.56310013717421" cy="899.3141289437586" r="24.784413580246913" fill="#b08d57" opacity="0.13621356310013716"/><circle cx="187.86008230452674" cy="319.6030521262003" r="26.07170781893004" fill="#b08d57" opacity="0.20007887517146777"/><circle cx="278.00068587105625" cy="316.79526748971193" r="24.689248971193415" fill="#8a9767" opacity="0.19293081275720164"/>
+</svg>
