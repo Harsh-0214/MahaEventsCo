@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { siteConfig } from "@/lib/content";
+import { HeroVideo } from "@/components/hero-video";
 
 export function Hero() {
   return (
@@ -7,14 +7,7 @@ export function Hero() {
       id="hero"
       className="relative flex min-h-dvh items-center overflow-hidden bg-(--color-charcoal-deep)"
     >
-      <Image
-        src="/images/hero.webp"
-        alt="A candlelit floral arch styled for a wedding or proposal"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
+      <HeroVideo />
       <div
         className="absolute inset-0 bg-gradient-to-t from-(--color-charcoal-deep)/80 via-(--color-charcoal-deep)/35 to-(--color-charcoal-deep)/50"
         aria-hidden="true"
