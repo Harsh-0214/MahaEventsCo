@@ -9,7 +9,11 @@ export function Hero() {
     >
       <HeroVideo />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-(--color-charcoal-deep)/80 via-(--color-charcoal-deep)/35 to-(--color-charcoal-deep)/50"
+        className="absolute inset-0 bg-gradient-to-t from-(--color-charcoal-deep)/75 via-(--color-charcoal-deep)/10 to-transparent"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-(--color-charcoal-deep)/70 via-(--color-charcoal-deep)/20 to-transparent"
         aria-hidden="true"
       />
 
