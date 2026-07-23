@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FadeImage } from "@/components/fade-image";
+import { FramedImage } from "@/components/framed-image";
 import { galleryImages } from "@/lib/content";
 import { Reveal } from "@/components/reveal";
 
@@ -95,20 +96,23 @@ export function GalleryLightbox() {
                 triggerRefs.current[index] = el;
               }}
               onClick={() => setActiveIndex(index)}
-              className="group relative block aspect-square w-full cursor-pointer overflow-hidden rounded-xl"
+              className="block aspect-square w-full cursor-pointer"
               aria-label={`View larger image: ${item.alt}`}
             >
-              <FadeImage
+              <FramedImage
                 src={item.image}
                 alt={item.alt}
                 fill
                 sizes="(min-width: 1024px) 25vw, 50vw"
-                className="object-cover transition-transform duration-500 ease-out [@media(hover:hover)]:group-hover:scale-[1.05]"
-              />
-              <div
-                className="absolute inset-0 bg-(--color-charcoal-deep)/0 transition-colors duration-300 ease-out [@media(hover:hover)]:group-hover:bg-(--color-charcoal-deep)/10"
-                aria-hidden="true"
-              />
+                shape="soft"
+                wrapperClassName="h-full w-full"
+                className="transition-transform duration-500 ease-out [@media(hover:hover)]:group-hover:scale-[1.05]"
+              >
+                <div
+                  className="absolute inset-0 bg-(--color-charcoal-deep)/0 transition-colors duration-300 ease-out [@media(hover:hover)]:group-hover:bg-(--color-charcoal-deep)/10"
+                  aria-hidden="true"
+                />
+              </FramedImage>
             </button>
           </Reveal>
         ))}
@@ -144,7 +148,7 @@ export function GalleryLightbox() {
             <ArrowIcon direction="left" />
           </button>
 
-          <div className="relative aspect-[4/5] w-full max-w-2xl overflow-hidden rounded-2xl">
+          <div className="relative aspect-[4/5] w-full max-w-2xl overflow-hidden rounded-2xl ring-1 ring-inset ring-(--color-gold-soft)/40">
             <FadeImage
               key={activeIndex}
               src={galleryImages[activeIndex].image}

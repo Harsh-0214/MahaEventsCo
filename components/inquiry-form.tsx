@@ -138,8 +138,12 @@ export function InquiryForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="rounded-2xl bg-(--color-surface) p-6 shadow-[0_10px_30px_rgba(41,39,31,0.1)] sm:p-10"
+      className="relative overflow-hidden rounded-2xl bg-(--color-surface) p-6 shadow-[0_10px_30px_rgba(41,39,31,0.1)] sm:p-10"
     >
+      <span
+        className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-(--color-olive) via-(--color-gold-soft) to-(--color-olive)"
+        aria-hidden="true"
+      />
       <p className="mb-6 text-xs text-(--color-text-muted)">
         All fields are required.
       </p>
