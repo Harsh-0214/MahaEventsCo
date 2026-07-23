@@ -106,7 +106,7 @@ export function GalleryLightbox() {
                 className="object-cover transition-transform duration-500 ease-out [@media(hover:hover)]:group-hover:scale-[1.05]"
               />
               <div
-                className="absolute inset-0 bg-(--color-forest-deep)/0 transition-colors duration-300 ease-out [@media(hover:hover)]:group-hover:bg-(--color-forest-deep)/10"
+                className="absolute inset-0 bg-(--color-charcoal-deep)/0 transition-colors duration-300 ease-out [@media(hover:hover)]:group-hover:bg-(--color-charcoal-deep)/10"
                 aria-hidden="true"
               />
             </button>
@@ -117,7 +117,7 @@ export function GalleryLightbox() {
       {activeIndex !== null && (
         <div
           ref={dialogRef}
-          className="fixed inset-0 z-100 flex items-center justify-center bg-(--color-forest-deep)/90 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-(--color-charcoal-deep)/90 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label="Image viewer"

@@ -1,4 +1,4 @@
-// Generates elegant placeholder decor illustrations — soft ivory/forest/gold
+// Generates elegant placeholder decor illustrations — soft ivory/olive/gold
 // line-and-wash florals — so the site runs before real photography exists.
 // Swap files under public/images/ 1:1 with real photos later (same names).
 import { mkdirSync } from "node:fs";
@@ -10,8 +10,8 @@ mkdirSync(OUT, { recursive: true });
 
 const IVORY = "#faf6ef";
 const LINEN = "#e9dfc9";
-const FOREST_DEEP = "#1e2921";
-const SAGE = "#7c8f74";
+const CHARCOAL_DEEP = "#2b2823";
+const SAGE = "#8a9578";
 const GOLD = "#b68a4e";
 const GOLD_SOFT = "#d3ab6e";
 
@@ -134,7 +134,7 @@ function scene({ w, h, seed, variant }) {
       <radialGradient id="bg" cx="50%" cy="38%" r="75%">
         <stop offset="0%" stop-color="${IVORY}"/>
         <stop offset="60%" stop-color="${LINEN}"/>
-        <stop offset="100%" stop-color="${FOREST_DEEP}"/>
+        <stop offset="100%" stop-color="${CHARCOAL_DEEP}"/>
       </radialGradient>
       <radialGradient id="vig" cx="50%" cy="42%" r="72%">
         <stop offset="65%" stop-color="#000000" stop-opacity="0"/>

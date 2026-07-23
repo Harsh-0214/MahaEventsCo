@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
 :root {
+  /* Neutrals first — olive is an accent, not a wash, matching the logo */
   --color-ivory: #faf6ef;
   --color-cream: #f2ead9;
   --color-linen: #e9dfc9;
-  --color-forest: #2f3f34;
-  --color-forest-deep: #1e2921;
-  --color-sage: #7c8f74;
+  --color-charcoal: #2b2823;
+  --color-charcoal-deep: #1c1a16;
+  --color-olive: #5c6641;
+  --color-olive-deep: #3a4129;
+  --color-sage: #8a9578;
   --color-gold: #b68a4e;
   --color-gold-soft: #d3ab6e;
   --color-ink: #29271f;
@@ -16,8 +19,8 @@
   --color-surface: #ffffff;
   --color-text: var(--color-ink);
   --color-text-muted: var(--color-ink-soft);
-  --color-accent: var(--color-forest);
-  --color-accent-strong: var(--color-forest-deep);
+  --color-accent: var(--color-olive);
+  --color-accent-strong: var(--color-olive-deep);
   --color-secondary: var(--color-gold);
   --color-border: #ddd2ba;
   --color-border-strong: #a8925e;
@@ -29,8 +32,10 @@
   --color-ivory: var(--color-ivory);
   --color-cream: var(--color-cream);
   --color-linen: var(--color-linen);
-  --color-forest: var(--color-forest);
-  --color-forest-deep: var(--color-forest-deep);
+  --color-charcoal: var(--color-charcoal);
+  --color-charcoal-deep: var(--color-charcoal-deep);
+  --color-olive: var(--color-olive);
+  --color-olive-deep: var(--color-olive-deep);
   --color-sage: var(--color-sage);
   --color-gold: var(--color-gold);
   --color-gold-soft: var(--color-gold-soft);
@@ -62,7 +67,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-forest);
+  background: var(--color-olive);
   color: var(--color-ivory);
 }
 

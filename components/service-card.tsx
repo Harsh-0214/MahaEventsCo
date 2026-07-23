@@ -12,7 +12,7 @@ export function ServiceCard({ service }: { service: Service }) {
         className="object-cover transition-transform duration-500 ease-out [@media(hover:hover)]:group-hover:scale-[1.06]"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-(--color-forest-deep)/90 via-(--color-forest-deep)/20 to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-(--color-charcoal-deep)/90 via-(--color-charcoal-deep)/20 to-transparent"
         aria-hidden="true"
       />
       <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1.5 p-6">

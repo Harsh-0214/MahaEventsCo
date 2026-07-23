@@ -5,7 +5,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-dvh items-center overflow-hidden bg-(--color-forest-deep)"
+      className="relative flex min-h-dvh items-center overflow-hidden bg-(--color-charcoal-deep)"
     >
       <Image
         src="/images/hero.webp"
@@ -16,7 +16,7 @@ export function Hero() {
         className="object-cover"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-(--color-forest-deep)/80 via-(--color-forest-deep)/35 to-(--color-forest-deep)/50"
+        className="absolute inset-0 bg-gradient-to-t from-(--color-charcoal-deep)/80 via-(--color-charcoal-deep)/35 to-(--color-charcoal-deep)/50"
         aria-hidden="true"
       />
 
@@ -37,7 +37,7 @@ export function Hero() {
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <a
             href="#contact"
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-(--color-gold) px-8 text-sm font-medium tracking-wide text-white transition-[background-color,transform] duration-150 ease-out hover:bg-(--color-gold-soft) active:scale-[0.97]"
+            className="inline-flex min-h-12 items-center justify-center rounded-full bg-(--color-olive) px-8 text-sm font-medium tracking-wide text-white transition-[background-color,transform] duration-150 ease-out hover:bg-(--color-olive-deep) active:scale-[0.97]"
           >
             Inquire Now
           </a>
