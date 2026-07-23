@@ -3,6 +3,7 @@ import { Playfair_Display, Outfit } from "next/font/google";
 import { siteConfig } from "@/lib/content";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { LoadingScreen } from "@/components/loading-screen";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -48,6 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${outfit.variable}`}>
       <body className="flex min-h-dvh flex-col bg-(--color-bg) text-(--color-text) antialiased">
+        <LoadingScreen />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-full focus:bg-(--color-accent) focus:px-5 focus:py-3 focus:text-white"
