@@ -15,9 +15,13 @@ export function HeroSignature() {
   return (
     <span className="relative inline-block">
       <span
-        className={`font-(family-name:--font-script) inline-block bg-gradient-to-r from-(--color-gold) via-(--color-gold-soft) to-(--color-gold) bg-clip-text text-6xl leading-none text-transparent [filter:drop-shadow(0_3px_10px_rgba(0,0,0,0.55))] sm:text-7xl lg:text-8xl ${
+        className={`font-(family-name:--font-script) inline-block text-6xl leading-none text-(--color-ivory) sm:text-7xl lg:text-8xl ${
           play ? "signature-write" : "signature-hidden"
         }`}
+        style={{
+          filter:
+            "drop-shadow(0 0 18px rgba(211,171,110,0.55)) drop-shadow(0 2px 6px rgba(0,0,0,0.6))",
+        }}
       >
         {siteConfig.name}
       </span>
