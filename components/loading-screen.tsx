@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { siteConfig } from "@/lib/content";
 
 const MIN_DISPLAY_MS = 1200;
 const FALLBACK_MS = 4000;
@@ -10,56 +9,76 @@ const FALLBACK_MS = 4000;
 export function LoadingScreen() {
   const [videoReady, setVideoReady] = useState(false);
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [exiting, setExiting] = useState(false);
   const [visible, setVisible] = useState(true);
+  const doneRef = useRef(false);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    const start = Date.now();
 
     const minTimer = setTimeout(() => setMinTimeElapsed(true), MIN_DISPLAY_MS);
     const fallbackTimer = setTimeout(() => setVideoReady(true), FALLBACK_MS);
     const onReady = () => setVideoReady(true);
     window.addEventListener("hero-video-canplay", onReady);
 
+    const tick = setInterval(() => {
+      if (doneRef.current) return;
+      const elapsed = Date.now() - start;
+      setProgress(Math.min(92, 92 * (1 - Math.exp(-elapsed / 1000))));
+    }, 60);
+
     return () => {
       clearTimeout(minTimer);
       clearTimeout(fallbackTimer);
+      clearInterval(tick);
       window.removeEventListener("hero-video-canplay", onReady);
     };
   }, []);
 
   useEffect(() => {
-    if (!videoReady || !minTimeElapsed || exiting) return;
+    if (!videoReady || !minTimeElapsed || doneRef.current) return;
+    doneRef.current = true;
+    setProgress(100);
 
-    setExiting(true);
-    document.body.style.overflow = "";
-    window.dispatchEvent(new Event("hero-enter"));
+    const exitTimer = setTimeout(() => {
+      setExiting(true);
+      document.body.style.overflow = "";
+      window.dispatchEvent(new Event("hero-enter"));
+    }, 250);
 
-    const hideTimer = setTimeout(() => setVisible(false), 700);
-    return () => clearTimeout(hideTimer);
-  }, [videoReady, minTimeElapsed, exiting]);
+    const hideTimer = setTimeout(() => setVisible(false), 250 + 700);
+    return () => {
+      clearTimeout(exitTimer);
+      clearTimeout(hideTimer);
+    };
+  }, [videoReady, minTimeElapsed]);
 
   if (!visible) return null;
 
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 z-[100] flex items-center justify-center bg-(--color-charcoal-deep) transition-opacity duration-700 ease-out ${
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-(--color-ivory) transition-opacity duration-700 ease-out ${
         exiting ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-8 px-6">
         <Image
           src="/images/maha-logo.png"
-          alt=""
-          width={200}
-          height={200}
+          alt="Maha Events Co"
+          width={150}
+          height={150}
           priority
-          className="h-20 w-20 animate-pulse sm:h-24 sm:w-24"
+          className="h-56 w-56 object-contain sm:h-72 sm:w-72"
         />
-        <span className="font-(family-name:--font-display) text-lg italic tracking-wide text-white/90">
-          {siteConfig.name}
-        </span>
+        <div className="h-1 w-48 overflow-hidden rounded-full bg-(--color-charcoal-deep)/10 sm:w-64">
+          <div
+            className="h-full rounded-full bg-(--color-gold-soft) transition-[width] duration-150 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
     </div>
   );
