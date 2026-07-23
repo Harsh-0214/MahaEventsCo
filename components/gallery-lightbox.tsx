@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { FadeImage } from "@/components/fade-image";
 import { galleryImages } from "@/lib/content";
 import { Reveal } from "@/components/reveal";
 
@@ -98,7 +98,7 @@ export function GalleryLightbox() {
               className="group relative block aspect-square w-full cursor-pointer overflow-hidden rounded-xl"
               aria-label={`View larger image: ${item.alt}`}
             >
-              <Image
+              <FadeImage
                 src={item.image}
                 alt={item.alt}
                 fill
@@ -145,7 +145,8 @@ export function GalleryLightbox() {
           </button>
 
           <div className="relative aspect-[4/5] w-full max-w-2xl overflow-hidden rounded-2xl">
-            <Image
+            <FadeImage
+              key={activeIndex}
               src={galleryImages[activeIndex].image}
               alt={galleryImages[activeIndex].alt}
               fill

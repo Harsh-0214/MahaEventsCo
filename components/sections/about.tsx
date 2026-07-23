@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { FadeImage } from "@/components/fade-image";
 import { Reveal } from "@/components/reveal";
 
 export function About() {
@@ -9,7 +9,7 @@ export function About() {
           delayMs={80}
           className="relative order-1 aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-[0_20px_50px_rgba(41,39,31,0.15)] lg:order-2"
         >
-          <Image
+          <FadeImage
             src="/images/about-portrait.webp"
             alt="Floral styling detail in ivory and gold tones"
             fill

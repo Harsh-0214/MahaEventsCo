@@ -1,10 +1,10 @@
-import Image from "next/image";
+import { FadeImage } from "@/components/fade-image";
 import type { Service } from "@/lib/content";
 
 export function ServiceCard({ service }: { service: Service }) {
   return (
     <div className="group relative aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-[0_10px_30px_rgba(41,39,31,0.15)] transition-transform duration-300 ease-out [@media(hover:hover)]:hover:-translate-y-1.5">
-      <Image
+      <FadeImage
         src={service.image}
         alt={service.alt}
         fill
