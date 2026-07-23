@@ -60,16 +60,16 @@ export function LoadingScreen() {
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 z-[100] flex items-center justify-center bg-(--color-ivory) transition-opacity duration-700 ease-out ${
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-(--color-linen) transition-opacity duration-700 ease-out ${
         exiting ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
       <div className="flex flex-col items-center gap-8 px-6">
         <Image
-          src="/images/maha-logo.png"
+          src="/images/maha-logo-hd.jpeg"
           alt="Maha Events Co"
-          width={150}
-          height={150}
+          width={1024}
+          height={1024}
           priority
           className="h-56 w-56 object-contain sm:h-72 sm:w-72"
         />

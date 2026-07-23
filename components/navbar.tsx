@@ -107,12 +107,12 @@ export function Navbar() {
       <nav aria-label="Primary" className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 lg:px-10">
         <a href="#hero" className="flex items-center gap-2.5" aria-label={siteConfig.name}>
           <Image
-            src="/images/maha-logo.png"
+            src="/images/maha-logo-hd.jpeg"
             alt=""
-            width={150}
-            height={150}
+            width={1024}
+            height={1024}
             priority
-            className="h-11 w-11 shrink-0"
+            className="h-11 w-11 shrink-0 rounded-full object-cover"
           />
           <span
             className={cn(
