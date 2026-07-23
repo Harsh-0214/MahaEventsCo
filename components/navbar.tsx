@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 import { navLinks, siteConfig } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -104,14 +105,23 @@ export function Navbar() {
       )}
     >
       <nav aria-label="Primary" className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 lg:px-10">
-        <a
-          href="#hero"
-          className={cn(
-            "font-(family-name:--font-display) text-xl tracking-wide transition-colors duration-300",
-            isSolid ? "text-(--color-accent-strong)" : "text-white",
-          )}
-        >
-          {siteConfig.name}
+        <a href="#hero" className="flex items-center gap-2.5" aria-label={siteConfig.name}>
+          <Image
+            src="/images/maha-logo.png"
+            alt=""
+            width={150}
+            height={150}
+            priority
+            className="h-11 w-11 shrink-0"
+          />
+          <span
+            className={cn(
+              "hidden font-(family-name:--font-display) text-lg tracking-wide transition-colors duration-300 sm:inline",
+              isSolid ? "text-(--color-accent-strong)" : "text-white",
+            )}
+          >
+            {siteConfig.name}
+          </span>
         </a>
 
         <ul className="hidden items-center gap-8 md:flex">
