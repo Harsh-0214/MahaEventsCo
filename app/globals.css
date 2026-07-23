@@ -117,21 +117,25 @@ body {
 @keyframes signature-glow {
   0%,
   100% {
-    filter: drop-shadow(0 0 18px rgba(211, 171, 110, 0.45)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 0 4px rgba(211, 171, 110, 0.55)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
   }
   50% {
-    filter: drop-shadow(0 0 28px rgba(211, 171, 110, 0.7)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 0 8px rgba(211, 171, 110, 0.8)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
   }
 }
 
 .signature-hidden {
   clip-path: inset(0 101% 0 0);
-  filter: drop-shadow(0 0 18px rgba(211, 171, 110, 0.45)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
 }
 
 .signature-write {
-  filter: drop-shadow(0 0 18px rgba(211, 171, 110, 0.45)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
-  animation:
-    signature-write 2.4s var(--ease-out) forwards,
-    signature-glow 4s ease-in-out 2.6s infinite;
+  animation: signature-write 2.4s var(--ease-out) forwards;
+}
+
+.signature-glow-base {
+  filter: drop-shadow(0 0 4px rgba(211, 171, 110, 0.55)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+}
+
+.signature-glow {
+  animation: signature-glow 4s ease-in-out 2.6s infinite;
 }
