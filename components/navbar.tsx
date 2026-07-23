@@ -122,7 +122,7 @@ export function Navbar() {
           </span>
           <span
             className={cn(
-              "hidden font-(family-name:--font-script) text-3xl leading-none transition-colors duration-300 sm:inline",
+              "hidden whitespace-nowrap font-(family-name:--font-script) text-[clamp(1.125rem,2vw,1.875rem)] leading-none transition-colors duration-300 sm:inline",
               isSolid ? "text-(--color-accent-strong) group-hover:text-(--color-gold)" : "text-white group-hover:text-(--color-gold-soft)",
             )}
           >

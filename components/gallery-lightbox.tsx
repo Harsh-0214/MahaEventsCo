@@ -134,7 +134,7 @@ export function GalleryLightbox() {
             type="button"
             onClick={close}
             aria-label="Close image viewer"
-            className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-white"
+            className="absolute right-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-(--color-charcoal-deep)/50 text-white/90 backdrop-blur-sm transition-colors duration-200 hover:bg-(--color-charcoal-deep)/70 hover:text-white"
           >
             <CloseIcon />
           </button>
@@ -143,7 +143,7 @@ export function GalleryLightbox() {
             type="button"
             onClick={() => showRelative(-1)}
             aria-label="Previous image"
-            className="absolute left-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-white sm:left-6"
+            className="absolute left-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-(--color-charcoal-deep)/50 text-white/90 backdrop-blur-sm transition-colors duration-200 hover:bg-(--color-charcoal-deep)/70 hover:text-white sm:left-6"
           >
             <ArrowIcon direction="left" />
           </button>
@@ -164,7 +164,7 @@ export function GalleryLightbox() {
             type="button"
             onClick={() => showRelative(1)}
             aria-label="Next image"
-            className="absolute right-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-white sm:right-6"
+            className="absolute right-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-(--color-charcoal-deep)/50 text-white/90 backdrop-blur-sm transition-colors duration-200 hover:bg-(--color-charcoal-deep)/70 hover:text-white sm:right-6"
           >
             <ArrowIcon direction="right" />
           </button>
