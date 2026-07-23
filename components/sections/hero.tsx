@@ -1,5 +1,6 @@
 import { siteConfig } from "@/lib/content";
 import { HeroVideo } from "@/components/hero-video";
+import { HeroSignature } from "@/components/hero-signature";
 
 export function Hero() {
   return (
@@ -14,16 +15,17 @@ export function Hero() {
       />
 
       <div className="relative mx-auto flex w-full max-w-4xl flex-col items-start px-6 pt-24 lg:px-10">
-        <p className="mb-5 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.25em] text-(--color-gold-soft)">
+        <p className="mb-5 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.25em] text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
           <span className="h-px w-6 bg-(--color-gold-soft)" />
           {siteConfig.tagline}
         </p>
-        <h1 className="font-(family-name:--font-display) text-5xl italic leading-[1.05] text-white sm:text-6xl lg:text-7xl">
+        <HeroSignature />
+        <h1 className="mt-4 font-(family-name:--font-display) text-4xl italic leading-[1.05] text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.5)] sm:text-5xl lg:text-6xl">
           Unforgettable moments,
           <br />
           beautifully styled.
         </h1>
-        <p className="mt-6 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg">
+        <p className="mt-6 max-w-lg text-base leading-relaxed text-white/90 [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] sm:text-lg">
           {siteConfig.name} designs and styles weddings and marriage proposals
           with warmth, elegance, and hand-placed detail.
         </p>
