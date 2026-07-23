@@ -20,6 +20,7 @@
   --color-accent-strong: var(--color-forest-deep);
   --color-secondary: var(--color-gold);
   --color-border: #ddd2ba;
+  --color-border-strong: #a8925e;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -44,6 +45,7 @@
   --color-accent-strong: var(--color-accent-strong);
   --color-secondary: var(--color-secondary);
   --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
 
   --font-display: var(--font-playfair);
   --font-sans: var(--font-outfit);

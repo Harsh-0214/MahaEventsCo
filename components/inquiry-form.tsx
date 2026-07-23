@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { eventTypes } from "@/lib/content";
 
 type FormValues = {
@@ -63,13 +63,23 @@ function SpinnerIcon() {
 }
 
 const inputClass =
-  "flex min-h-11 w-full rounded-lg border border-(--color-border) bg-(--color-surface) px-4 py-2.5 text-base text-(--color-text) transition-colors duration-150 ease-out placeholder:text-(--color-text-muted)/60 focus-visible:border-(--color-accent) focus-visible:outline-none aria-invalid:border-red-500";
+  "flex min-h-11 w-full rounded-lg border border-(--color-border-strong) bg-(--color-surface) px-4 py-2.5 text-base text-(--color-text) transition-colors duration-150 ease-out placeholder:text-(--color-text-muted)/60 focus-visible:border-(--color-accent) focus-visible:outline-none aria-invalid:border-red-500";
+
+const FIELD_ORDER: Array<keyof FormValues> = [
+  "name",
+  "email",
+  "phone",
+  "eventType",
+  "eventDate",
+  "message",
+];
 
 export function InquiryForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const fieldRefs = useRef<Partial<Record<keyof FormValues, HTMLElement | null>>>({});
 
   function handleChange(name: keyof FormValues, value: string) {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -88,7 +98,11 @@ export function InquiryForm() {
       if (error) nextErrors[key] = error;
     });
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0) return;
+    if (Object.keys(nextErrors).length > 0) {
+      const firstInvalid = FIELD_ORDER.find((key) => nextErrors[key]);
+      if (firstInvalid) fieldRefs.current[firstInvalid]?.focus();
+      return;
+    }
 
     setSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 900));
@@ -126,23 +140,30 @@ export function InquiryForm() {
       noValidate
       className="rounded-2xl bg-(--color-surface) p-6 shadow-[0_10px_30px_rgba(41,39,31,0.1)] sm:p-10"
     >
+      <p className="mb-6 text-xs text-(--color-text-muted)">
+        All fields are required.
+      </p>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
           <label htmlFor="name" className="text-sm font-medium text-(--color-text)">
-            Name
+            Name <span aria-hidden="true">*</span>
           </label>
           <input
             id="name"
+            ref={(el) => {
+              fieldRefs.current.name = el;
+            }}
             autoComplete="name"
             value={values.name}
             onChange={(e) => handleChange("name", e.target.value)}
             onBlur={() => handleBlur("name")}
+            aria-required="true"
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
             className={inputClass}
           />
           {errors.name && (
-            <p id="name-error" className="text-sm text-red-600">
+            <p id="name-error" role="alert" className="text-sm text-red-600">
               {errors.name}
             </p>
           )}
@@ -150,21 +171,25 @@ export function InquiryForm() {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="email" className="text-sm font-medium text-(--color-text)">
-            Email
+            Email <span aria-hidden="true">*</span>
           </label>
           <input
             id="email"
+            ref={(el) => {
+              fieldRefs.current.email = el;
+            }}
             type="email"
             autoComplete="email"
             value={values.email}
             onChange={(e) => handleChange("email", e.target.value)}
             onBlur={() => handleBlur("email")}
+            aria-required="true"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
             className={inputClass}
           />
           {errors.email && (
-            <p id="email-error" className="text-sm text-red-600">
+            <p id="email-error" role="alert" className="text-sm text-red-600">
               {errors.email}
             </p>
           )}
@@ -172,21 +197,25 @@ export function InquiryForm() {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="phone" className="text-sm font-medium text-(--color-text)">
-            Phone
+            Phone <span aria-hidden="true">*</span>
           </label>
           <input
             id="phone"
+            ref={(el) => {
+              fieldRefs.current.phone = el;
+            }}
             type="tel"
             autoComplete="tel"
             value={values.phone}
             onChange={(e) => handleChange("phone", e.target.value)}
             onBlur={() => handleBlur("phone")}
+            aria-required="true"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "phone-error" : undefined}
             className={inputClass}
           />
           {errors.phone && (
-            <p id="phone-error" className="text-sm text-red-600">
+            <p id="phone-error" role="alert" className="text-sm text-red-600">
               {errors.phone}
             </p>
           )}
@@ -194,13 +223,17 @@ export function InquiryForm() {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="eventType" className="text-sm font-medium text-(--color-text)">
-            Event Type
+            Event Type <span aria-hidden="true">*</span>
           </label>
           <select
             id="eventType"
+            ref={(el) => {
+              fieldRefs.current.eventType = el;
+            }}
             value={values.eventType}
             onChange={(e) => handleChange("eventType", e.target.value)}
             onBlur={() => handleBlur("eventType")}
+            aria-required="true"
             aria-invalid={!!errors.eventType}
             aria-describedby={errors.eventType ? "eventType-error" : undefined}
             className={inputClass}
@@ -213,7 +246,7 @@ export function InquiryForm() {
             ))}
           </select>
           {errors.eventType && (
-            <p id="eventType-error" className="text-sm text-red-600">
+            <p id="eventType-error" role="alert" className="text-sm text-red-600">
               {errors.eventType}
             </p>
           )}
@@ -221,20 +254,24 @@ export function InquiryForm() {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="eventDate" className="text-sm font-medium text-(--color-text)">
-            Event Date
+            Event Date <span aria-hidden="true">*</span>
           </label>
           <input
             id="eventDate"
+            ref={(el) => {
+              fieldRefs.current.eventDate = el;
+            }}
             type="date"
             value={values.eventDate}
             onChange={(e) => handleChange("eventDate", e.target.value)}
             onBlur={() => handleBlur("eventDate")}
+            aria-required="true"
             aria-invalid={!!errors.eventDate}
             aria-describedby={errors.eventDate ? "eventDate-error" : undefined}
             className={inputClass}
           />
           {errors.eventDate && (
-            <p id="eventDate-error" className="text-sm text-red-600">
+            <p id="eventDate-error" role="alert" className="text-sm text-red-600">
               {errors.eventDate}
             </p>
           )}
@@ -242,21 +279,25 @@ export function InquiryForm() {
 
         <div className="flex flex-col gap-2 sm:col-span-2">
           <label htmlFor="message" className="text-sm font-medium text-(--color-text)">
-            Message
+            Message <span aria-hidden="true">*</span>
           </label>
           <textarea
             id="message"
+            ref={(el) => {
+              fieldRefs.current.message = el;
+            }}
             rows={5}
             placeholder="Tell us about your event — venue, guest count, style you love..."
             value={values.message}
             onChange={(e) => handleChange("message", e.target.value)}
             onBlur={() => handleBlur("message")}
+            aria-required="true"
             aria-invalid={!!errors.message}
             aria-describedby={errors.message ? "message-error" : undefined}
             className={inputClass}
           />
           {errors.message && (
-            <p id="message-error" className="text-sm text-red-600">
+            <p id="message-error" role="alert" className="text-sm text-red-600">
               {errors.message}
             </p>
           )}

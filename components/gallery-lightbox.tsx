@@ -31,6 +31,7 @@ export function GalleryLightbox() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const triggerRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => {
     const lastIndex = activeIndex;
@@ -51,9 +52,28 @@ export function GalleryLightbox() {
     closeButtonRef.current?.focus();
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") {
+        close();
+        return;
+      }
       if (e.key === "ArrowRight") showRelative(1);
       if (e.key === "ArrowLeft") showRelative(-1);
+
+      if (e.key === "Tab") {
+        const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        if (!focusable || focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     const previousOverflow = document.body.style.overflow;
@@ -96,6 +116,7 @@ export function GalleryLightbox() {
 
       {activeIndex !== null && (
         <div
+          ref={dialogRef}
           className="fixed inset-0 z-100 flex items-center justify-center bg-(--color-forest-deep)/90 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
