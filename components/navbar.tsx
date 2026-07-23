@@ -100,24 +100,30 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300 ease-out",
         isSolid
-          ? "bg-(--color-ivory)/95 shadow-[0_1px_0_0_var(--color-border)] backdrop-blur-sm"
+          ? "bg-(--color-ivory)/95 shadow-[0_1px_0_0_rgba(211,171,110,0.4)] backdrop-blur-sm"
           : "bg-transparent",
       )}
     >
       <nav aria-label="Primary" className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 lg:px-10">
-        <a href="#hero" className="flex items-center gap-2.5" aria-label={siteConfig.name}>
-          <Image
-            src="/images/maha-logo.png"
-            alt=""
-            width={1024}
-            height={1024}
-            priority
-            className="h-11 w-11 shrink-0 object-contain"
-          />
+        <a href="#hero" className="group flex items-center gap-2" aria-label={siteConfig.name}>
+          <span className="relative flex h-11 w-11 shrink-0 items-center justify-center">
+            <span
+              className="absolute inset-0 rounded-full opacity-0 shadow-[0_0_14px_3px_rgba(211,171,110,0.55)] transition-opacity duration-300 ease-out group-hover:opacity-100"
+              aria-hidden="true"
+            />
+            <Image
+              src="/images/maha-logo.png"
+              alt=""
+              width={1024}
+              height={1024}
+              priority
+              className="relative h-11 w-11 object-contain transition-transform duration-300 ease-out group-hover:scale-110 group-hover:rotate-[6deg]"
+            />
+          </span>
           <span
             className={cn(
-              "hidden font-(family-name:--font-display) text-lg tracking-wide transition-colors duration-300 sm:inline",
-              isSolid ? "text-(--color-accent-strong)" : "text-white",
+              "hidden font-(family-name:--font-script) text-3xl leading-none transition-colors duration-300 sm:inline",
+              isSolid ? "text-(--color-accent-strong) group-hover:text-(--color-gold)" : "text-white group-hover:text-(--color-gold-soft)",
             )}
           >
             {siteConfig.name}
@@ -130,7 +136,7 @@ export function Navbar() {
               <a
                 href={link.href}
                 className={cn(
-                  "relative py-2 text-sm font-medium tracking-wide transition-colors duration-200",
+                  "group/link relative inline-block py-2 text-sm font-medium tracking-wide transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5",
                   isSolid ? "text-(--color-text)/80 hover:text-(--color-accent-strong)" : "text-white/85 hover:text-white",
                   activeHref === link.href && (isSolid ? "text-(--color-accent-strong)" : "text-white"),
                 )}
@@ -138,7 +144,7 @@ export function Navbar() {
                 {link.label}
                 <span
                   className={cn(
-                    "absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-200 ease-out",
+                    "absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-(--color-gold) transition-transform duration-200 ease-out group-hover/link:scale-x-100",
                     activeHref === link.href && "scale-x-100",
                   )}
                   aria-hidden="true"
@@ -151,7 +157,7 @@ export function Navbar() {
         <a
           href="#contact"
           className={cn(
-            "hidden rounded-full border px-5 py-2.5 text-sm font-medium transition-[background-color,color,transform] duration-200 ease-out active:scale-[0.97] md:inline-flex",
+            "hidden rounded-full border px-5 py-2.5 text-sm font-medium transition-[background-color,color,transform,box-shadow] duration-200 ease-out hover:shadow-[0_0_18px_2px_rgba(211,171,110,0.45)] active:scale-[0.97] md:inline-flex",
             isSolid
               ? "border-(--color-accent) text-(--color-accent-strong) hover:bg-(--color-accent) hover:text-white"
               : "border-white/70 text-white hover:bg-white/10",
@@ -189,7 +195,7 @@ export function Navbar() {
                 <a
                   href={link.href}
                   onClick={closeMenu}
-                  className="flex min-h-11 items-center text-base font-medium text-(--color-text) transition-colors duration-150 hover:text-(--color-accent-strong)"
+                  className="flex min-h-11 items-center border-b border-transparent text-base font-medium text-(--color-text) transition-[color,border-color,padding-left] duration-150 hover:border-(--color-gold) hover:pl-1 hover:text-(--color-accent-strong)"
                 >
                   {link.label}
                 </a>
