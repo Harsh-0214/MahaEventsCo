@@ -8,6 +8,7 @@ export function ServiceCard({ service }: { service: Service }) {
       alt={service.alt}
       fill
       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+      shape="soft"
       wrapperClassName="w-full aspect-[4/5] transition-transform duration-300 ease-out [@media(hover:hover)]:hover:-translate-y-1.5"
       className="transition-transform duration-500 ease-out [@media(hover:hover)]:group-hover:scale-[1.06]"
     >

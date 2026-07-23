@@ -23,6 +23,7 @@ export function About() {
             alt="Floral styling detail in ivory and gold tones"
             fill
             sizes="(min-width: 1024px) 560px, 100vw"
+            shape="soft"
             wrapperClassName="aspect-[4/5] w-full"
           />
         </Reveal>
