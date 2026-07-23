@@ -23,13 +23,13 @@ export function Hero() {
       />
 
       <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 pt-24 text-center lg:px-10">
-        <p className="mb-5 flex items-center gap-3 text-sm font-medium uppercase tracking-[0.25em] text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
+        <p className="mb-5 flex items-center gap-3 text-sm font-medium uppercase tracking-[0.25em] text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.7),0_0_16px_rgba(211,171,110,0.35)]">
           <span className="h-px w-6 bg-(--color-gold-soft)" />
           {siteConfig.tagline}
           <span className="h-px w-6 bg-(--color-gold-soft)" />
         </p>
         <HeroSignature />
-        <h1 className="mt-4 font-(family-name:--font-display) text-4xl italic leading-[1.05] text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.5)] sm:text-5xl lg:text-6xl">
+        <h1 className="mt-4 font-(family-name:--font-display) text-4xl italic leading-[1.05] text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.5),0_0_26px_rgba(211,171,110,0.3)] sm:text-5xl lg:text-6xl">
           Unforgettable moments,
           <br />
           beautifully styled.

@@ -114,10 +114,24 @@ body {
   }
 }
 
+@keyframes signature-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 18px rgba(211, 171, 110, 0.45)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 28px rgba(211, 171, 110, 0.7)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+  }
+}
+
 .signature-hidden {
   clip-path: inset(0 101% 0 0);
+  filter: drop-shadow(0 0 18px rgba(211, 171, 110, 0.45)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
 }
 
 .signature-write {
-  animation: signature-write 2.4s var(--ease-out) forwards;
+  filter: drop-shadow(0 0 18px rgba(211, 171, 110, 0.45)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+  animation:
+    signature-write 2.4s var(--ease-out) forwards,
+    signature-glow 4s ease-in-out 2.6s infinite;
 }
