@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Playfair_Display, Outfit } from "next/font/google";
 import { siteConfig } from "@/lib/content";
-import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
 });
 
-const jost = Jost({
-  variable: "--font-jost",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
@@ -24,13 +25,11 @@ export const metadata: Metadata = {
   title: `${siteConfig.name} | ${siteConfig.tagline}`,
   description: siteConfig.description,
   keywords: [
-    "South Asian wedding decor",
-    "proposal designer",
-    "luxury proposal Sacramento",
-    "wedding decor Bay Area",
-    "mehndi decor",
-    "rokha decor",
-    "event styling Central Valley",
+    "wedding decor",
+    "proposal decor",
+    "event styling",
+    "wedding planner",
+    "marriage proposal setup",
   ],
   openGraph: {
     title: `${siteConfig.name} | ${siteConfig.tagline}`,
@@ -47,9 +46,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
-      <body className="bg-(--color-bg) text-(--color-text) antialiased">
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+    <html lang="en" className={`${playfair.variable} ${outfit.variable}`}>
+      <body className="flex min-h-dvh flex-col bg-(--color-bg) text-(--color-text) antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-full focus:bg-(--color-accent) focus:px-5 focus:py-3 focus:text-white"
+        >
+          Skip to main content
+        </a>
+        <Navbar />
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

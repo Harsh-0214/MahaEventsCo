@@ -1,24 +1,19 @@
-"use client";
-
-import { useState } from "react";
-import { Loader } from "@/components/loader";
-import { Hero } from "@/components/hero";
-import { Journey } from "@/components/journey";
-import { Services } from "@/components/services";
-import { RevealSection } from "@/components/reveal-section";
-import { Footer } from "@/components/footer";
+import { Hero } from "@/components/sections/hero";
+import { About } from "@/components/sections/about";
+import { Services } from "@/components/sections/services";
+import { Gallery } from "@/components/sections/gallery";
+import { Testimonials } from "@/components/sections/testimonials";
+import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
-
   return (
     <>
-      {loading && <Loader onComplete={() => setLoading(false)} />}
       <Hero />
-      <Journey />
+      <About />
       <Services />
-      <RevealSection />
-      <Footer />
+      <Gallery />
+      <Testimonials />
+      <Contact />
     </>
   );
 }

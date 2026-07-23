@@ -1,64 +1,67 @@
 @import "tailwindcss";
 
 :root {
-  /* MAHA Events — limewash cream base, champagne gold as the ONLY accent */
-  --color-cream: #ede6d6;
-  --color-cream-soft: #f4efe4;
-  --color-gold: #c9a66b;
-  --color-sage: #8a9a7b;
-  --color-mauve: #b79aa0;
-  --color-plum: #4a2c33;
+  --color-ivory: #faf6ef;
+  --color-cream: #f2ead9;
+  --color-linen: #e9dfc9;
+  --color-forest: #2f3f34;
+  --color-forest-deep: #1e2921;
+  --color-sage: #7c8f74;
+  --color-gold: #b68a4e;
+  --color-gold-soft: #d3ab6e;
+  --color-ink: #29271f;
+  --color-ink-soft: #5a5648;
 
-  --color-ink: #3a2a2b;
-  --color-ink-soft: #6a5850;
-
-  --color-bg: var(--color-cream);
+  --color-bg: var(--color-ivory);
+  --color-surface: #ffffff;
   --color-text: var(--color-ink);
   --color-text-muted: var(--color-ink-soft);
-  --color-accent: var(--color-gold);
-  --color-border: color-mix(in srgb, var(--color-plum) 20%, transparent);
+  --color-accent: var(--color-forest);
+  --color-accent-strong: var(--color-forest-deep);
+  --color-secondary: var(--color-gold);
+  --color-border: #ddd2ba;
 
-  --ease-signature: cubic-bezier(0.215, 0.61, 0.355, 1); /* power3.inOut-ish for CSS fallbacks */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
+  --color-ivory: var(--color-ivory);
   --color-cream: var(--color-cream);
-  --color-cream-soft: var(--color-cream-soft);
-  --color-gold: var(--color-gold);
+  --color-linen: var(--color-linen);
+  --color-forest: var(--color-forest);
+  --color-forest-deep: var(--color-forest-deep);
   --color-sage: var(--color-sage);
-  --color-mauve: var(--color-mauve);
-  --color-plum: var(--color-plum);
+  --color-gold: var(--color-gold);
+  --color-gold-soft: var(--color-gold-soft);
   --color-ink: var(--color-ink);
   --color-ink-soft: var(--color-ink-soft);
 
   --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
   --color-text: var(--color-text);
   --color-text-muted: var(--color-text-muted);
   --color-accent: var(--color-accent);
+  --color-accent-strong: var(--color-accent-strong);
+  --color-secondary: var(--color-secondary);
   --color-border: var(--color-border);
 
-  --font-display: var(--font-cormorant);
-  --font-sans: var(--font-jost);
-}
-
-* {
-  border-color: var(--color-border);
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-outfit);
 }
 
 html {
-  background: var(--color-plum);
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-gold);
-  color: var(--color-plum);
+  background: var(--color-forest);
+  color: var(--color-ivory);
 }
 
 :focus-visible {
@@ -79,16 +82,16 @@ body {
   }
 }
 
-.brand-mark {
-  font-family: var(--font-display), Georgia, serif;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+/* Scroll reveal: toggled by [data-inview] once IntersectionObserver fires */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out);
 }
 
-canvas.journey-canvas {
-  will-change: transform;
-}
-
-.pin-layer {
-  will-change: transform;
+[data-reveal][data-inview="true"] {
+  opacity: 1;
+  transform: translateY(0);
 }

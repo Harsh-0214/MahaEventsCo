@@ -1,74 +1,102 @@
 export const siteConfig = {
-  name: "MAHA Events",
-  tagline: "Har Pal, styled by Maha.",
+  name: "Maha Events Co",
+  tagline: "Wedding & Proposal Decor",
   description:
-    "MAHA Events designs South Asian wedding & event decor and luxury proposal setups across Sacramento, the Bay Area, Central Valley, and Yuba City.",
+    "Maha Events Co designs and styles weddings and marriage proposals with warmth, elegance, and hand-placed detail.",
   instagramHandle: "@mahaeventsco",
   instagramUrl: "https://www.instagram.com/mahaeventsco",
   email: "hello@mahaeventsco.com",
+  phone: "(555) 012-0199",
   url: "https://mahaeventsco.com",
-  bookingStatus: "Now booking 2026–2027.",
-  serviceAreas: ["Sacramento", "Bay Area", "Central Valley", "Yuba City"],
 };
 
-export const heroCopy = {
-  eyebrow: "Maha Moments — a new way to propose.",
-  headline: "MAHA EVENTS",
-  sub: "Don't propose until you see this.",
-};
-
-export type StoryLine = {
-  text: string;
-  /** Progress (0–1) through the pinned journey at which this line is centered. */
-  at: number;
-};
-
-export const journeyLines: StoryLine[] = [
-  { text: "We design the moment…", at: 0.14 },
-  { text: "Every candle placed by hand…", at: 0.4 },
-  { text: "Every petal considered…", at: 0.64 },
-  { text: "So all you have to do is ask.", at: 0.88 },
+export const navLinks = [
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Reviews", href: "#reviews" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export type Service = {
   slug: string;
   title: string;
   description: string;
+  image: string;
+  alt: string;
 };
 
 export const services: Service[] = [
   {
-    slug: "proposals",
-    title: "Proposals",
-    description:
-      "The easiest way to create a luxury proposal — florals, candlelight, and every detail planned so you can just ask.",
-  },
-  {
     slug: "wedding-decor",
     title: "Wedding Decor",
     description:
-      "Full-scale styling for South Asian weddings — mandaps, stages, and reception decor built around your story.",
+      "Full-scale styling for ceremonies and receptions — florals, drapery, table design, and lighting built around your story.",
+    image: "/images/service-wedding.webp",
+    alt: "Elegant wedding reception table styled with florals and candlelight",
   },
   {
-    slug: "rokha",
-    title: "Rokha",
+    slug: "proposal-decor",
+    title: "Proposal Decor",
     description:
-      "Intimate, richly styled rokha ceremonies — thaals, drapery, and floral detail for the moment families come together.",
+      "Intimate, unforgettable setups designed around a single perfect question — florals, candles, and a moment worth remembering.",
+    image: "/images/service-proposal.webp",
+    alt: "Candlelit floral proposal arch at dusk",
   },
   {
-    slug: "mehndi",
-    title: "Mehndi",
+    slug: "event-styling",
+    title: "Event Styling",
     description:
-      "Vibrant lounge seating, floral backdrops, and lighting designed for the night before the big day.",
-  },
-  {
-    slug: "custom-signage",
-    title: "Custom Signage",
-    description:
-      "Hand-lettered welcome signs, seating charts, and neon — the finishing details that make a setup feel entirely yours.",
+      "Showers, engagements, and celebrations styled with the same care — backdrops, signage, and full-room design.",
+    image: "/images/service-event.webp",
+    alt: "Styled event backdrop with florals and soft lighting",
   },
 ];
 
-export const revealCopy = {
-  cta: "Plan your Maha Moment.",
+export type GalleryImage = {
+  id: string;
+  image: string;
+  alt: string;
 };
+
+export const galleryImages: GalleryImage[] = [
+  { id: "g1", image: "/images/gallery-1.webp", alt: "Floral centerpiece with taper candles" },
+  { id: "g2", image: "/images/gallery-2.webp", alt: "Ceremony arch styled with white florals" },
+  { id: "g3", image: "/images/gallery-3.webp", alt: "Hand-tied bridal bouquet detail" },
+  { id: "g4", image: "/images/gallery-4.webp", alt: "Reception table styled with gold and greenery" },
+  { id: "g5", image: "/images/gallery-5.webp", alt: "Proposal setup with candles and petals" },
+  { id: "g6", image: "/images/gallery-6.webp", alt: "Event backdrop with layered drapery" },
+];
+
+export type Testimonial = {
+  id: string;
+  quote: string;
+  name: string;
+  event: string;
+};
+
+export const testimonials: Testimonial[] = [
+  {
+    id: "t1",
+    quote:
+      "Maha understood our vision before we could even fully explain it. Every detail felt like us.",
+    name: "Amara & Zayd",
+    event: "Wedding",
+  },
+  {
+    id: "t2",
+    quote:
+      "He proposed under the arch she built for us. I still get emotional thinking about it.",
+    name: "Noor K.",
+    event: "Proposal",
+  },
+  {
+    id: "t3",
+    quote:
+      "Our reception looked like something out of a magazine. Guests are still talking about it.",
+    name: "Priya S.",
+    event: "Wedding",
+  },
+];
+
+export const eventTypes = ["Wedding", "Proposal", "Engagement Party", "Other"] as const;
