@@ -114,28 +114,10 @@ body {
   }
 }
 
-@keyframes signature-pen {
-  0% {
-    left: 0%;
-    opacity: 1;
-  }
-  92% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
 .signature-hidden {
   clip-path: inset(0 101% 0 0);
 }
 
 .signature-write {
   animation: signature-write 2.4s var(--ease-out) forwards;
-}
-
-.signature-pen {
-  animation: signature-pen 2.4s var(--ease-out) forwards;
 }
