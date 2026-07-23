@@ -17,7 +17,7 @@ export function HeroSignature() {
       className={`-ml-4 inline-block pl-4 ${play ? "signature-write" : "signature-hidden"}`}
     >
       <span
-        className={`signature-glow-base font-(family-name:--font-script) inline-block text-6xl leading-[1.5] text-(--color-ivory) sm:text-7xl lg:text-8xl ${
+        className={`signature-glow-base font-(family-name:--font-script) inline-block whitespace-nowrap text-[11vw] leading-[1.5] text-(--color-ivory) sm:text-6xl lg:text-7xl xl:text-8xl ${
           play ? "signature-glow" : ""
         }`}
       >
